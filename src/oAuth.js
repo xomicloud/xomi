@@ -6,33 +6,42 @@ import { httpUtilities, requestUtilities } from "necessary";
 import http from "./http";
 
 import { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } from "./contentTypes";
-import { ROOT_URI, BASE_64, EMPTY_STATE, OPEN_ID_SCOPE, CODE_RESPONSE_TYPE, AUTHORIZATION_CODE_GRANT_TYPE } from "./constants";
+import { ROOT_URI, BASE_64, OPEN_ID_SCOPE, CONTENT_TYPE, CONTENT_LENGTH, CODE_RESPONSE_TYPE, AUTHORIZATION_CODE_GRANT_TYPE } from "./constants";
 
 const { post } = requestUtilities,
       { queryStringFromParameters } = httpUtilities;
 
 function redirect(options, response, createAccount = false) {
-  const { clientId, clientHost, redirectURI } = options,
-        state = EMPTY_STATE, ///
+  const { clientHost, clientId, redirectURI, state = null, additionalParameters = null } = options,
         scope = OPEN_ID_SCOPE,  ///
         client_id = clientId,  ///
         redirect_uri = redirectURI,  ///
         response_type = CODE_RESPONSE_TYPE, ///
         parameters = {
-          "state" : state,
-          "scope" : scope,
-          "client_id" : client_id,
-          "redirect_uri" : redirect_uri,
-          "response_type" : response_type
+          scope,
+          client_id,
+          redirect_uri,
+          response_type
         };
+
+  if (state) {
+    Object.assign(parameters, {
+      state
+    });
+  }
 
   if (createAccount) {
     const create_account = createAccount; ///
 
     Object.assign(parameters, {
-      "create_account": create_account
+      create_account
     });
   }
+
+  if (additionalParameters) {
+    Object.assign(parameters, additionalParameters);
+  }
+
 
   const queryString = queryStringFromParameters(parameters),
         location = `${clientHost}?${queryString}`;
@@ -92,13 +101,14 @@ function createHeaders(options, content) {
         accept = APPLICATION_JSON_CONTENT_TYPE,
         contentType = APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE,
         contentLength = content.length,
-        authorisation = `Basic ${encodedDigest}`,
+        authorization = `Basic ${encodedDigest}`,
         headers = {
-          "accept" : accept,
-          "content-type" : contentType,
-          "content-length" : contentLength,
-          "authorization" : authorisation ///
+          accept,
+          authorization
         };
+
+  headers[CONTENT_TYPE] = contentType;
+  headers[CONTENT_LENGTH] = contentLength;
 
   return headers;
 }
@@ -116,9 +126,9 @@ function createParameters(options, code) {
         grant_type = AUTHORIZATION_CODE_GRANT_TYPE,
         redirect_uri = redirectURI,  ///
         parameters = {
-          "code" : code,
-          "grant_type" : grant_type,
-          "redirect_uri" : redirect_uri
+          code,
+          grant_type,
+          redirect_uri
         };
 
   return parameters;

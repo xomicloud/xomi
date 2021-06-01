@@ -6,7 +6,13 @@ import { httpUtilities, requestUtilities } from "necessary";
 import http from "./http";
 
 import { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } from "./contentTypes";
-import { ROOT_URI, BASE_64, OPEN_ID_SCOPE, CONTENT_TYPE, CONTENT_LENGTH, CODE_RESPONSE_TYPE, AUTHORIZATION_CODE_GRANT_TYPE } from "./constants";
+import { BASE_64,
+         EMPTY_STRING,
+         CONTENT_TYPE,
+         OPEN_ID_SCOPE,
+         CONTENT_LENGTH,
+         CODE_RESPONSE_TYPE,
+         AUTHORIZATION_CODE_GRANT_TYPE } from "./constants";
 
 const { post } = requestUtilities,
       { queryStringFromParameters } = httpUtilities;
@@ -53,12 +59,13 @@ function callback(options, code, callback) {
         content = createContent(options, code),
         headers = createHeaders(options, content),
         host = clientHost,  ///
-        uri = ROOT_URI,
+        uri = EMPTY_STRING, ///
         parameters = {},  ///
         readable = Readable.from(content);
 
   readable.pipe(post(host, uri, parameters, headers, (error, remoteResponse) => {
-    let accessToken = null;
+    let accessToken = null,
+        refreshToken = null;
 
     if (error) {
       callback(error, accessToken);
@@ -79,11 +86,12 @@ function callback(options, code, callback) {
         return;
       }
 
-      const { access_token = null} = json;
+      const { access_token = null, refresh_token = null } = json;
 
       accessToken = access_token; ///
 
-      callback(error, accessToken);
+
+      callback(error, accessToken, refreshToken);
     });
   }));
 }

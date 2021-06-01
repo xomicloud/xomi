@@ -4,8 +4,9 @@ import { AUTHENTICATION_COOKIE_EXPIRES, AUTHENTICATION_COOKIE_NAME_PREFIX } from
 
 function setAuthenticationCookie(options, response, accessToken, rememberMe = false) {
   const authenticationCookieName = getAuthenticationCookieName(options),
+        access_token = accessToken, ///
         json = {
-          accessToken
+          access_token
         },
         name = authenticationCookieName,  ///
         value = JSON.stringify(json),
@@ -30,10 +31,36 @@ function isAuthenticationCookiePresent(options, request) {
   return authenticationCookiePresent;
 }
 
+function getAccessTokenFromAuthenticationCookie(options, request) {
+  let accessToken = null;
+
+  const authenticationCookiePresent = isAuthenticationCookiePresent(options, request);
+
+  if (authenticationCookiePresent) {
+    const { cookies } = request,
+          authenticationCookieNAme = getAuthenticationCookieName(options),
+          name = authenticationCookieNAme,  ///
+          value = !!cookies[name];
+
+    try {
+      const json = JSON.parse(value),
+            { access_token } = json;
+
+      accessToken = access_token; ///
+    } catch (error) {
+      accessToken = value;  ///
+    }
+  }
+
+  return accessToken;
+}
+
+
 module.exports = {
   setAuthenticationCookie,
   removeAuthenticationCookie,
-  isAuthenticationCookiePresent
+  isAuthenticationCookiePresent,
+  getAccessTokenFromAuthenticationCookie
 };
 
 function getAuthenticationCookieName(options) {

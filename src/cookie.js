@@ -10,7 +10,7 @@ function setAuthenticationCookie(options, response, accessToken, rememberMe = fa
         },
         name = authenticationCookieName,  ///
         value = JSON.stringify(json),
-        parameters = getParameters(rememberMe);
+        parameters = getParameters(options, rememberMe);
 
   response.cookie(name, value, parameters);
 }
@@ -70,8 +70,15 @@ function getAuthenticationCookieName(options) {
   return authenticationCookieName;
 }
 
-function getParameters(rememberMe) {
-  const parameters = {};
+function getParameters(options, rememberMe) {
+  const parameters = {},
+        { domain } = options;
+
+  if (domain) {
+    Object.assign(parameters, {
+      domain
+    });
+  }
 
   if (rememberMe) {
     const expires = AUTHENTICATION_COOKIE_EXPIRES;

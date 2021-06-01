@@ -68,7 +68,7 @@ function callback(options, code, callback) {
         refreshToken = null;
 
     if (error) {
-      callback(error, accessToken);
+      callback(error, accessToken, refreshToken);
 
       return;
     }
@@ -81,7 +81,7 @@ function callback(options, code, callback) {
       try {
         json = JSON.parse(jsonString);
       } catch (error) {
-        callback(error, accessToken);
+        callback(error, accessToken, refreshToken);
 
         return;
       }
@@ -89,7 +89,7 @@ function callback(options, code, callback) {
       const { access_token = null, refresh_token = null } = json;
 
       accessToken = access_token; ///
-
+      refreshToken = refresh_token; ///
 
       callback(error, accessToken, refreshToken);
     });

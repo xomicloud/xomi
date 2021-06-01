@@ -40,7 +40,7 @@ function getAccessTokenFromAuthenticationCookie(options, request) {
     const { cookies } = request,
           authenticationCookieNAme = getAuthenticationCookieName(options),
           name = authenticationCookieNAme,  ///
-          value = !!cookies[name];
+          value = cookies[name];
 
     try {
       const json = JSON.parse(value),
@@ -54,7 +54,6 @@ function getAccessTokenFromAuthenticationCookie(options, request) {
 
   return accessToken;
 }
-
 
 module.exports = {
   setAuthenticationCookie,

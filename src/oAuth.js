@@ -42,7 +42,6 @@ function redirect(options, response, createAccount = false) {
     Object.assign(parameters, additionalParameters);
   }
 
-
   const queryString = queryStringFromParameters(parameters),
         location = `${clientHost}?${queryString}`;
 

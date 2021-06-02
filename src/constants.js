@@ -8,6 +8,7 @@ export const EMPTY_STRING = "";
 export const CONTENT_TYPE = "content-type";
 export const OPEN_ID_SCOPE = "openid";
 export const CONTENT_LENGTH = "content-length";
+export const DEFAULT_CLIENT_URI = "/";
 export const CODE_RESPONSE_TYPE = "code";
 export const AUTHORIZATION_CODE_GRANT_TYPE = "authorization_code";
 export const AUTHENTICATION_COOKIE_EXPIRES = new Date(2147483647000);

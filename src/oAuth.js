@@ -7,10 +7,10 @@ import http from "./http";
 
 import { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } from "./contentTypes";
 import { BASE_64,
-         EMPTY_STRING,
          CONTENT_TYPE,
          OPEN_ID_SCOPE,
          CONTENT_LENGTH,
+         DEFAULT_CLIENT_URI,
          CODE_RESPONSE_TYPE,
          AUTHORIZATION_CODE_GRANT_TYPE } from "./constants";
 
@@ -18,7 +18,7 @@ const { post } = requestUtilities,
       { queryStringFromParameters } = httpUtilities;
 
 function redirect(options, response, createAccount = false) {
-  const { clientHost, clientId, redirectURI, state = null, additionalParameters = null } = options,
+  const { clientHost, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,
         scope = OPEN_ID_SCOPE,  ///
         client_id = clientId,  ///
         redirect_uri = redirectURI,  ///
@@ -49,17 +49,17 @@ function redirect(options, response, createAccount = false) {
   }
 
   const queryString = queryStringFromParameters(parameters),
-        location = `${clientHost}?${queryString}`;
+        location = `${clientHost}${clientURI}?${queryString}`;
 
   http.redirect(response, location);
 }
 
 function callback(options, code, callback) {
-  const { clientHost } = options,
+  const { clientHost, clientURI = DEFAULT_CLIENT_URI, } = options,
         content = createContent(options, code),
         headers = createHeaders(options, content),
         host = clientHost,  ///
-        uri = EMPTY_STRING, ///
+        uri = clientURI, ///
         parameters = {},  ///
         readable = Readable.from(content);
 

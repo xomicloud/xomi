@@ -1,18 +1,18 @@
 "use strict";
 
-import { Readable } from "stream";
-import { httpUtilities, requestUtilities } from "necessary";
+const { Readable } = require("stream"),
+      { httpUtilities, requestUtilities } = require("necessary");
 
-import http from "./http";
+const http = require("./http");
 
-import { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } from "./contentTypes";
-import { BASE_64,
+const { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes"),
+      { BASE_64,
          CONTENT_TYPE,
          OPEN_ID_SCOPE,
          CONTENT_LENGTH,
          DEFAULT_CLIENT_URI,
          CODE_RESPONSE_TYPE,
-         AUTHORIZATION_CODE_GRANT_TYPE } from "./constants";
+         AUTHORIZATION_CODE_GRANT_TYPE } = require("./constants");
 
 const { post } = requestUtilities,
       { queryStringFromParameters } = httpUtilities;
@@ -96,7 +96,7 @@ function callback(options, code, callback) {
   }));
 }
 
-export default {
+module.exports = {
   redirect,
   callback
 };

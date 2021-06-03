@@ -1,0 +1,13 @@
+"use strict";
+
+const TEXT_HTML_CONTENT_TYPE = "text/html",
+      TEXT_PLAIN_CONTENT_TYPE = "text/plain",
+      APPLICATION_JSON_CONTENT_TYPE = "application/json",
+      APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE = "application/x-www-form-urlencoded";
+
+module.exports = {
+  TEXT_HTML_CONTENT_TYPE,
+  TEXT_PLAIN_CONTENT_TYPE,
+  APPLICATION_JSON_CONTENT_TYPE,
+  APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE
+};

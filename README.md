@@ -54,12 +54,12 @@ Note the use of the aforementioned `options` argument.
 
 ### OAuth functionality
 
-These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback.
-
 - `redirect()`
 - `callback()`
 
-* The `redirect()` function takes an `option` argument and a `response` argument. The latter is expected to be an instance of Node's [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse). You can also pass a third, optional `createAccount` argument that, if set to true, instructs the authentication site to show the form to create an account rather than the sign up form.
+These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback. Full usage examples can be found in the JavaScript secure application, a link to which can be found in the related links section near the foot of this readme file.
+
+* The `redirect()` function takes an `option` argument and a `response` argument. The response is expected to be an instance of Node's [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) class. You can also pass a third, optional `createAccount` argument that, if set to true, instructs the authentication site to show the form to create an account rather than the sign up form.
 
 ```
 const { oAuth } = require("@xomicloud/xomi");
@@ -78,8 +78,7 @@ function signInHandler(request, response, next) {
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const paths = require("../paths"),
-      options = require("../options");
+const options = require("../options");
 
 function callbackHandler(request, response, next) {
   const { query } = request,
@@ -89,9 +88,76 @@ function callbackHandler(request, response, next) {
     ///
   });
 }
-
-module.exports = callbackHandler;
 ```
+
+### Cookie functionality
+
+- `setAuthenticationCookie()`
+- `removeAuthenticationCookie()`
+- `isAuthenticationCookiePresent()`
+- `getAccessTokenFromAuthenticationCookie()`
+
+These functions supply basic authentication cookie functionality. Full usage examples can be found in the JavaScript secure application, a link to which can be found in the related links section near the foot of this readme file.
+
+* The `setAuthenticationCookie()` function takes an `option` argument, a `response` argument and an `accessToken` argument. The response is expected to be an instance of Node's ServerResponse class. It also takes an optional `rememberMe` argument which, if est to true, sets the expiry of the cookie well into the future.
+
+```
+const { oAuth, cookie } = require("@xomicloud/xomi");
+
+const options = require("../options");
+
+function callbackHandler(request, response, next) {
+  const { query } = request,
+        { code } = query;
+
+  oAuth.callback(options, code, (error, accessToken) => {
+    ///
+
+    const { remember_me } = query,
+          rememberMe = !!remember_me;
+
+    cookie.setAuthenticationCookie(options, response, accessToken, rememberMe);
+
+    ///
+  });
+}
+```
+
+* The `removeAuthenticationCookie()` function takes an `option` argument and a `response` argument.
+
+```
+const { cookie, oAuth } = require("@xomicloud/xomi");
+
+const options = require("../options");
+
+function signOutHandler(request, response, next) {
+  cookie.removeAuthenticationCookie(options, response);
+
+  oAuth.redirect(options, response);
+}
+```
+
+* The `isAuthenticationCookiePresent()` function takes an `option` argument and a `response` argument.
+
+```
+const { oAuth, cookie } = require("@xomicloud/xomi");
+
+const options = require("../../options");
+
+function homePageHandler(request, response, next) {
+  const authenticationCookiePresent = cookie.isAuthenticationCookiePresent(options, request);
+
+  if (!authenticationCookiePresent) {
+    oAuth.redirect(options, response);
+
+    return;
+  }
+
+  ///
+}
+```
+
+* The `getAccessTokenFromAuthenticationCookie()` function similarly takes an `option` argument and a `response` argument.
 
 ## Related links
 

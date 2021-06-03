@@ -52,6 +52,47 @@ cookie.setAuthenticationCookie(options, ...)  //  Set an authentication cookie
 
 Note the use of the aforementioned `options` argument.
 
+### OAuth functionality
+
+These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback.
+
+- `redirect()`
+- `callback()`
+
+* The `redirect()` function takes an `option` argument and a `response` argument. The latter is expected to be an instance of Node's [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse). You can also pass a third, optional `createAccount` argument that, if set to true, instructs the authentication site to show the form to create an account rather than the sign up form.
+
+```
+const { oAuth } = require("@xomicloud/xomi");
+
+const options = require("../options");
+
+function signInHandler(request, response, next) {
+  const createAccount = false;
+
+  oAuth.redirect(options, response, createAccount);
+}
+```
+
+* The `callback()` function takes an `option` argument, a `code` argument and a `callback` function argument. The `code` argument is expected to be the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` and an `accessToken` argument.
+
+```
+const { oAuth, cookie } = require("@xomicloud/xomi");
+
+const paths = require("../paths"),
+      options = require("../options");
+
+function callbackHandler(request, response, next) {
+  const { query } = request,
+        { code } = query;
+
+  oAuth.callback(options, code, (error, accessToken) => {
+    ///
+  });
+}
+
+module.exports = callbackHandler;
+```
+
 ## Related links
 
 * [GitHub - JavaScript Secure Application](https://github.com/xomicloud/javascript-secure-application)

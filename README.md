@@ -52,15 +52,6 @@ cookie.setAuthenticationCookie(options, ...)  //  Set an authentication cookie
 
 Note the use of the aforementioned `options` argument.
 
-## Building
-
-Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
-
-    npm run build-debug
-    npm run watch-debug
-
-As with cloning, there is no need to do this unless you are interested in Xomi's development.
-
 ## Related links
 
 * [GitHub - JavaScript Secure Application](https://github.com/xomicloud/javascript-secure-application)

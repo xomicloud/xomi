@@ -61,6 +61,12 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
 
 As with cloning, there is no need to do this unless you are interested in Xomi's development.
 
+## Related links
+
+* [GitHub - JavaScript Secure Application](https://github.com/xomicloud/javascript-secure-application)
+* [Developers - JavaScript Lambda Tutorial](https://developers.xomi.cloud/tutorial/javascript-lambda)
+* [Knowledge base - The Anatomy of a Secure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application)
+
 ## Contact
 
 - james.smith@djalbat.com

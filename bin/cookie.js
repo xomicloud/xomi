@@ -17,9 +17,11 @@ function setAuthenticationCookie(options, response, accessToken, rememberMe = fa
 
 function removeAuthenticationCookie(options, response) {
   const authenticationCookieNAme = getAuthenticationCookieName(options),
-        name = authenticationCookieNAme;  ///
+        name = authenticationCookieNAme,  ///
+        rememberMe = false,
+        parameters = getParameters(options, rememberMe);
 
-  response.clearCookie(name);
+  response.clearCookie(name, parameters);
 }
 
 function isAuthenticationCookiePresent(options, request) {

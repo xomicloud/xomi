@@ -5,7 +5,7 @@ const { Readable } = require("stream"),
 
 const http = require("./http");
 
-const { createBasicAuthorisationHeader } = require("./utilities/authorisation");
+const { createBasicAuthorisation } = require("./utilities/authorisation");
 
 const { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes"),
       { CONTENT_TYPE,
@@ -106,8 +106,8 @@ function createHeaders(options, content) {
   const accept = APPLICATION_JSON_CONTENT_TYPE,
         contentType = APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE,
         contentLength = content.length,
-        basicAuthorisationHeader = createBasicAuthorisationHeader(options),
-        authorization = basicAuthorisationHeader, ///
+        basicAuthorisation = createBasicAuthorisation(options),
+        authorization = basicAuthorisation, ///
         headers = {
           accept,
           authorization

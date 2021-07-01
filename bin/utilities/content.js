@@ -2,8 +2,8 @@
 
 const { CONTENT_TYPE, CONTENT_LENGTH } = require("../constants");
 
-function remoteHeadersFromRequest(request) {
-  const remoteHeaders = {},
+function contentHeadersFromRequest(request) {
+  const contentHeaders = {},
         { headers } = request,
         ownPropertyNames = Object.getOwnPropertyNames(headers),
         names = ownPropertyNames;  ///
@@ -13,13 +13,13 @@ function remoteHeadersFromRequest(request) {
           lowerCaseName = name.toLowerCase();
 
     if ((lowerCaseName === CONTENT_TYPE) || (lowerCaseName === CONTENT_LENGTH)) {
-      remoteHeaders[name] = value;
+      contentHeaders[name] = value;
     }
   });
 
-  return remoteHeaders;
+  return contentHeaders;
 }
 
 module.exports = {
-  remoteHeadersFromRequest
+  contentHeadersFromRequest
 };

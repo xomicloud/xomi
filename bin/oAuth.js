@@ -5,14 +5,15 @@ const { Readable } = require("stream"),
 
 const http = require("./http");
 
+const { createBasicAuthorisationHeader } = require("./utilities/authorisation");
+
 const { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes"),
-      { BASE_64,
-         CONTENT_TYPE,
-         OPEN_ID_SCOPE,
-         CONTENT_LENGTH,
-         DEFAULT_CLIENT_URI,
-         CODE_RESPONSE_TYPE,
-         AUTHORIZATION_CODE_GRANT_TYPE } = require("./constants");
+      { CONTENT_TYPE,
+        OPEN_ID_SCOPE,
+        CONTENT_LENGTH,
+        DEFAULT_CLIENT_URI,
+        CODE_RESPONSE_TYPE,
+        AUTHORIZATION_CODE_GRANT_TYPE } = require("./constants");
 
 const { post } = requestUtilities,
       { queryStringFromParameters } = httpUtilities;
@@ -102,13 +103,11 @@ module.exports = {
 };
 
 function createHeaders(options, content) {
-  const { clientId, clientSecret } = options,
-        digest = `${clientId}:${clientSecret}`,
-        encodedDigest = Buffer.from(digest).toString(BASE_64),
-        accept = APPLICATION_JSON_CONTENT_TYPE,
+  const accept = APPLICATION_JSON_CONTENT_TYPE,
         contentType = APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE,
         contentLength = content.length,
-        authorization = `Basic ${encodedDigest}`,
+        basicAuthorisationHeader = createBasicAuthorisationHeader(options),
+        authorization = basicAuthorisationHeader, ///
         headers = {
           accept,
           authorization

@@ -2,7 +2,7 @@
 
 const { CONTENT_TYPE, CONTENT_LENGTH } = require("../constants");
 
-function contentHeadersFromRequest(request) {
+function createContentHeaders(request) {
   const contentHeaders = {},
         { headers } = request,
         ownPropertyNames = Object.getOwnPropertyNames(headers),
@@ -21,5 +21,5 @@ function contentHeadersFromRequest(request) {
 }
 
 module.exports = {
-  contentHeadersFromRequest
+  createContentHeaders
 };

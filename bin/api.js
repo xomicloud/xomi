@@ -15,10 +15,10 @@ function api(options, request, response) {
   const { url, query, method } = request,
         { apiHost = DEFAULT_API_HOST } = options,
         basicAuthorisation = createBasicAuthorisation(options),
-        authorization = basicAuthorisation,  ///
-        host = apiHost,  ///
         uri = url,  ///
+        host = apiHost,  ///
         parameters = query, ///
+        authorization = basicAuthorisation,  ///
         headers = {
           authorization
         };

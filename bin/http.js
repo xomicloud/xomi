@@ -25,7 +25,7 @@ function badGatewayError(response, error) {
 
   response.status(BAD_GATEWAY_ERROR_502_STATUS_CODE);
 
-  response.end(error);
+  response.end(`${error}`); ///
 }
 
 function internalServerError(response, error) {
@@ -33,7 +33,7 @@ function internalServerError(response, error) {
 
   response.status(INTERNAL_SERVER_ERROR_500_STATUS_CODE);
 
-  response.end(error);
+  response.end(`${error}`); ///
 }
 
 function bodyFromResponse(response, callback) {

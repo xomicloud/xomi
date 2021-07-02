@@ -1,6 +1,7 @@
 "use strict";
 
-const http = require("./bin/http"),
+const api = require("./bin/api"),
+      http = require("./bin/http"),
       oAuth = require("./bin/oAuth"),
       cookie = require("./bin/cookie"),
       contentUtilities = require("./bin/utilities/content"),
@@ -8,6 +9,7 @@ const http = require("./bin/http"),
       authorisationUtilities = require("./bin/utilities/authorisation");
 
 module.exports = {
+  api,
   http,
   oAuth,
   cookie,

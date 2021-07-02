@@ -7,13 +7,9 @@ const http = require("./http");
 
 const { createBasicAuthorisation } = require("./utilities/authorisation");
 
-const { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes"),
-      { CONTENT_TYPE,
-        OPEN_ID_SCOPE,
-        CONTENT_LENGTH,
-        DEFAULT_CLIENT_URI,
-        CODE_RESPONSE_TYPE,
-        AUTHORIZATION_CODE_GRANT_TYPE } = require("./constants");
+const { DEFAULT_CLIENT_URI } = require("./defaults"),
+      { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes"),
+      { CONTENT_TYPE, OPEN_ID_SCOPE, CONTENT_LENGTH, CODE_RESPONSE_TYPE, AUTHORIZATION_CODE_GRANT_TYPE } = require("./constants");
 
 const { post } = requestUtilities,
       { queryStringFromParameters } = httpUtilities;

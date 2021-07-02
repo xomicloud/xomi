@@ -3,16 +3,16 @@
 const { requestUtilities } = require("necessary");
 
 const { pipeline } = require("./utilities/pipeline"),
+      { POST_METHOD } = require("./constants"),
+      { DEFAULT_API_HOST } = require("./defaults"),
       { createContentHeaders } = require("./utilities/content"),
       { createBasicAuthorisation } = require("./utilities/authorisation");
-
-const { POST_METHOD } = require("./constants"),
-      { DEFAULT_API_HOST } = require("./defaults");
 
 const { request: remoteRequest } = requestUtilities;
 
 function api(options, request, response) {
-  const { url, query, method, apiHost = DEFAULT_API_HOST } = request,
+  const { url, query, method } = request,
+        { apiHost = DEFAULT_API_HOST } = options,
         basicAuthorisation = createBasicAuthorisation(options),
         authorization = basicAuthorisation,  ///
         host = apiHost,  ///

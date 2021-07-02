@@ -12,6 +12,16 @@ function html(response, html) {
   response.end(html);
 }
 
+function error(response, error, statusCode) {
+  response.setHeader(CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE);
+
+  response.status(statusCode);
+
+  error = `${error}`; ///
+
+  response.end(error);
+}
+
 function redirect(response, location) {
   response.setHeader(LOCATION, location);
 
@@ -21,11 +31,9 @@ function redirect(response, location) {
 }
 
 function badGatewayError(response, error) {
-  response.setHeader(CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE);
+  const statusCode = BAD_GATEWAY_ERROR_502_STATUS_CODE;
 
-  response.status(BAD_GATEWAY_ERROR_502_STATUS_CODE);
-
-  response.end(error);
+  error(response, error, statusCode);
 }
 
 function bodyFromResponse(response, callback) {
@@ -41,15 +49,14 @@ function bodyFromResponse(response, callback) {
 }
 
 function internalServerError(response, error) {
-  response.setHeader(CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE);
+  const statusCode = INTERNAL_SERVER_ERROR_500_STATUS_CODE;
 
-  response.status(INTERNAL_SERVER_ERROR_500_STATUS_CODE);
-
-  response.end(error);
+  error(response, error, statusCode);
 }
 
 module.exports = {
   html,
+  error,
   redirect,
   badGatewayError,
   bodyFromResponse,

@@ -4,6 +4,7 @@ const { requestUtilities } = require("necessary");
 
 const { pipeline } = require("./utilities/pipeline"),
       { POST_METHOD } = require("./constants"),
+      { badGatewayError } = require("./http"),
       { DEFAULT_API_HOST } = require("./defaults"),
       { createContentHeaders } = require("./utilities/content"),
       { createBasicAuthorisation } = require("./utilities/authorisation");
@@ -30,7 +31,7 @@ function api(options, request, response) {
 
   const _request = remoteRequest(host, uri, parameters, method, headers, (error, _response) => {
     if (error) {
-      debugger
+      badGatewayError(response, error);
 
       return;
     }

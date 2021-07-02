@@ -1,15 +1,15 @@
 "use strict";
 
-const { requestUtilities } = require("necessary"),
-      { contentUtilities, pipelineUtilities, authorisationUtilities } = require("@xomicloud/xomi");
+const { requestUtilities } = require("necessary");
+
+const { pipeline } = require("./utilities/pipeline"),
+      { createContentHeaders } = require("./utilities/content"),
+      { createBasicAuthorisation } = require("./utilities/authorisation");
 
 const { POST_METHOD } = require("./constants"),
       { DEFAULT_API_HOST } = require("./defaults");
 
-const { pipeline } = pipelineUtilities,
-      { createContentHeaders } = contentUtilities,
-      { request: remoteRequest } = requestUtilities,
-      { createBasicAuthorisation } = authorisationUtilities;
+const { request: remoteRequest } = requestUtilities;
 
 function api(options, request, response) {
   const { url, query, method, apiHost = DEFAULT_API_HOST } = request,

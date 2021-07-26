@@ -1,7 +1,7 @@
 "use strict";
 
-function pipeline(remoteResponse, response) {
-  const { headers, statusCode } = remoteResponse,
+function pipeline(_response, response) {
+  const { headers, statusCode } = _response,
         status = statusCode;  ///
 
   response.status(status);
@@ -12,7 +12,7 @@ function pipeline(remoteResponse, response) {
     response.setHeader(name, value);
   }
 
-  remoteResponse.pipe(response);
+  _response.pipe(response);
 }
 
 module.exports = {

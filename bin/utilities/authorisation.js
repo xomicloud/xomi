@@ -37,7 +37,7 @@ function clientSecretFromBasicAuthorisation(basicAuthorisation) {
 
   if (basicAuthorisation !== null) {
     const digest = digestFromBasicAuthorisation(basicAuthorisation),
-         matches = digest.match(/^([^:]+):([^:]+)$/);
+          matches = digest.match(/^([^:]+):([^:]+)$/);
 
     if (matches !== null) {
       const thirdMatch = third(matches);

@@ -1,5 +1,7 @@
 "use strict";
 
+const { TRANSFER_ENCODING } = require("../constants");
+
 function pipeline(_response, response) {
   const { headers, statusCode } = _response,
         status = statusCode;  ///
@@ -7,9 +9,14 @@ function pipeline(_response, response) {
   response.status(status);
 
   for (const name in headers) {
-    const value = headers[name];
+    const lowerCaseName = name.toLowerCase(),
+          lowerCaseTransferEncoding = TRANSFER_ENCODING.toLowerCase();
 
-    response.setHeader(name, value);
+    if (lowerCaseName !== lowerCaseTransferEncoding) {
+      const value = headers[name];
+
+      response.setHeader(name, value);
+    }
   }
 
   _response.pipe(response);

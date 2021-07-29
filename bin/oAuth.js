@@ -8,18 +8,18 @@ const http = require("./http");
 const { createBasicAuthorisation } = require("./utilities/authorisation");
 
 const { DEFAULT_CLIENT_URI } = require("./defaults"),
-      { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes"),
-      { CONTENT_TYPE, OPEN_ID_SCOPE, CONTENT_LENGTH, CODE_RESPONSE_TYPE, AUTHORIZATION_CODE_GRANT_TYPE } = require("./constants");
+      { CONTENT_TYPE, OPEN_ID, CONTENT_LENGTH, CODE, AUTHORIZATION_CODE } = require("./constants"),
+      { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes");
 
 const { post } = requestUtilities,
       { queryStringFromParameters } = httpUtilities;
 
 function redirect(options, response, createAccount = false) {
   const { clientHost, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,
-        scope = OPEN_ID_SCOPE,  ///
+        scope = OPEN_ID,  ///
         client_id = clientId,  ///
         redirect_uri = redirectURI,  ///
-        response_type = CODE_RESPONSE_TYPE, ///
+        response_type = CODE, ///
         parameters = {
           scope,
           client_id,
@@ -125,7 +125,7 @@ function createContent(options, code) {
 
 function createParameters(options, code) {
   const { redirectURI } = options,
-        grant_type = AUTHORIZATION_CODE_GRANT_TYPE,
+        grant_type = AUTHORIZATION_CODE,
         redirect_uri = redirectURI,  ///
         parameters = {
           code,

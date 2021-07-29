@@ -2,8 +2,8 @@
 
 const { requestUtilities } = require("necessary");
 
-const { pipeline } = require("./utilities/pipeline"),
-      { POST_METHOD } = require("./constants"),
+const { POST } = require("./constants"),
+      { pipeline } = require("./utilities/pipeline"),
       { badGatewayError } = require("./http"),
       { DEFAULT_API_HOST } = require("./defaults"),
       { createContentHeaders } = require("./utilities/content"),
@@ -21,9 +21,12 @@ function api(options, request, response) {
         authorization = basicAuthorisation,  ///
         headers = {
           authorization
-        };
+        },
+        lowerCasePost = POST.toLowerCase(),
+        lowerCaseMethod = method.toLowerCase(),
+        methodPostMethod = (lowerCaseMethod === lowerCasePost); ///
 
-  if (method === POST_METHOD) {
+  if (methodPostMethod) {
     const contentHeaders = createContentHeaders(request);
 
     Object.assign(headers, contentHeaders);

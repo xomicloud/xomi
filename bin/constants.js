@@ -2,30 +2,32 @@
 
 const END = "end",
       DATA = "data",
+      CODE = "code",
+      POST = "POST",
       BASE_64 = "base64",
+      OPEN_ID = "openid",
       LOCATION = "location",
       EMPTY_STRING = "",
       CONTENT_TYPE = "content-type",
-      OPEN_ID_SCOPE = "openid",
       CONTENT_LENGTH = "content-length",
-      DEFAULT_CLIENT_URI = "/",
-      CODE_RESPONSE_TYPE = "code",
-      AUTHORIZATION_CODE_GRANT_TYPE = "authorization_code",
-      AUTHENTICATION_COOKIE_EXPIRES = new Date(2147483647000),
-      AUTHENTICATION_COOKIE_NAME_PREFIX = "authentication";
+      AUTHENTICATION = "authentication",
+      TRANSFER_ENCODING = "transfer-encoding",
+      AUTHORIZATION_CODE = "authorization_code",
+      AUTHENTICATION_COOKIE_EXPIRES = new Date(2147483647000);
 
 module.exports = {
   END,
   DATA,
+  CODE,
+  POST,
   BASE_64,
+  OPEN_ID,
   LOCATION,
   EMPTY_STRING,
   CONTENT_TYPE,
-  OPEN_ID_SCOPE,
   CONTENT_LENGTH,
-  DEFAULT_CLIENT_URI,
-  CODE_RESPONSE_TYPE,
-  AUTHORIZATION_CODE_GRANT_TYPE,
-  AUTHENTICATION_COOKIE_EXPIRES,
-  AUTHENTICATION_COOKIE_NAME_PREFIX
+  AUTHENTICATION,
+  TRANSFER_ENCODING,
+  AUTHORIZATION_CODE,
+  AUTHENTICATION_COOKIE_EXPIRES
 };

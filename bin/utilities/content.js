@@ -6,13 +6,15 @@ function createContentHeaders(request) {
   const contentHeaders = {},
         { headers } = request,
         ownPropertyNames = Object.getOwnPropertyNames(headers),
-        names = ownPropertyNames;  ///
+        names = ownPropertyNames,  ///
+        lowerCaseContentType = CONTENT_TYPE.toLowerCase(),
+        lowerCaseContentLength = CONTENT_LENGTH.toLowerCase();
 
   names.forEach((name) => {
     const value = headers[name],
           lowerCaseName = name.toLowerCase();
 
-    if ((lowerCaseName === CONTENT_TYPE) || (lowerCaseName === CONTENT_LENGTH)) {
+    if ((lowerCaseName === lowerCaseContentType) || (lowerCaseContentLength === CONTENT_LENGTH)) {
       contentHeaders[name] = value;
     }
   });

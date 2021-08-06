@@ -1,18 +1,25 @@
 "use strict";
 
-function pipeline(remoteResponse, response) {
-  const { headers, statusCode } = remoteResponse,
+const { TRANSFER_ENCODING } = require("../constants");
+
+function pipeline(_response, response) {
+  const { headers, statusCode } = _response,
         status = statusCode;  ///
 
   response.status(status);
 
   for (const name in headers) {
-    const value = headers[name];
+    const lowerCaseName = name.toLowerCase(),
+          lowerCaseTransferEncoding = TRANSFER_ENCODING.toLowerCase();
 
-    response.setHeader(name, value);
+    if (lowerCaseName !== lowerCaseTransferEncoding) {
+      const value = headers[name];
+
+      response.setHeader(name, value);
+    }
   }
 
-  remoteResponse.pipe(response);
+  _response.pipe(response);
 }
 
 module.exports = {

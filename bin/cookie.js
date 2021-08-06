@@ -1,6 +1,6 @@
 "use strict";
 
-const { AUTHENTICATION_COOKIE_EXPIRES, AUTHENTICATION_COOKIE_NAME_PREFIX } = require("./constants");
+const { AUTHENTICATION, AUTHENTICATION_COOKIE_NAME_PREFIX } = require("./constants");
 
 function setAuthenticationCookie(options, response, accessToken, rememberMe = false) {
   const authenticationCookieName = getAuthenticationCookieName(options),
@@ -66,7 +66,7 @@ module.exports = {
 
 function getAuthenticationCookieName(options) {
   const { clientId } = options,
-        authenticationCookieName = `${AUTHENTICATION_COOKIE_NAME_PREFIX}.${clientId}`;
+        authenticationCookieName = `${AUTHENTICATION}.${clientId}`;
 
   return authenticationCookieName;
 }

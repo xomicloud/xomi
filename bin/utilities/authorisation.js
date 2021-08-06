@@ -18,13 +18,15 @@ function createBasicAuthorisation(options) {
 function clientIdFromBasicAuthorisation(basicAuthorisation) {
   let clientId = null;
 
-  const digest = digestFromBasicAuthorisation(basicAuthorisation),
-        matches = digest.match(/^([^:]+):([^:]+)$/);
+  if (basicAuthorisation !== null) {
+    const digest = digestFromBasicAuthorisation(basicAuthorisation),
+          matches = digest.match(/^([^:]+):([^:]+)$/);
 
-  if (matches !== null) {
-    const secondMatch = second(matches);
+    if (matches !== null) {
+      const secondMatch = second(matches);
 
-    clientId = secondMatch;  ///
+      clientId = secondMatch;  ///
+    }
   }
 
   return clientId;
@@ -33,13 +35,15 @@ function clientIdFromBasicAuthorisation(basicAuthorisation) {
 function clientSecretFromBasicAuthorisation(basicAuthorisation) {
   let clientSecret = null;
 
-  const digest = digestFromBasicAuthorisation(basicAuthorisation),
-        matches = digest.match(/^([^:]+):([^:]+)$/);
+  if (basicAuthorisation !== null) {
+    const digest = digestFromBasicAuthorisation(basicAuthorisation),
+          matches = digest.match(/^([^:]+):([^:]+)$/);
 
-  if (matches !== null) {
-    const thirdMatch = third(matches);
+    if (matches !== null) {
+      const thirdMatch = third(matches);
 
-    clientSecret = thirdMatch;  ///
+      clientSecret = thirdMatch;  ///
+    }
   }
 
   return clientSecret;

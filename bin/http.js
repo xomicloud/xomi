@@ -37,7 +37,7 @@ function internalServerError(response, error) {
 }
 
 function bodyFromResponse(response, callback) {
-  let body = "";
+  let body = EMPTY_STRING;
 
   response.on(DATA, (data) => {
     body += data;

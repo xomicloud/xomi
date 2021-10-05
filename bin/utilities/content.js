@@ -14,7 +14,7 @@ function createContentHeaders(request) {
     const value = headers[name],
           lowerCaseName = name.toLowerCase();
 
-    if ((lowerCaseName === lowerCaseContentType) || (lowerCaseContentLength === CONTENT_LENGTH)) {
+    if ((lowerCaseName === lowerCaseContentType) || (lowerCaseName === lowerCaseContentLength)) {
       contentHeaders[name] = value;
     }
   });

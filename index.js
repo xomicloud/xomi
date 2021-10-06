@@ -4,7 +4,8 @@ const api = require("./bin/api"),
       http = require("./bin/http"),
       oAuth = require("./bin/oAuth"),
       cookie = require("./bin/cookie"),
-      contentUtilities = require("./bin/utilities/content"),
+      headerUtilities = require("./bin/utilities/header"),
+      requestUtilities = require("./bin/utilities/request"),
       pipelineUtilities = require("./bin/utilities/pipeline"),
       authorisationUtilities = require("./bin/utilities/authorisation");
 
@@ -13,7 +14,8 @@ module.exports = {
   http,
   oAuth,
   cookie,
-  contentUtilities,
+  headerUtilities,
+  requestUtilities,
   pipelineUtilities,
   authorisationUtilities
 };

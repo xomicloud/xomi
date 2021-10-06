@@ -2,12 +2,12 @@
 
 const { requestUtilities } = require("necessary");
 
-const { POST } = require("./constants"),
-      { pipeline } = require("./utilities/pipeline"),
+const { pipeline } = require("./utilities/pipeline"),
       { badGatewayError } = require("./http"),
       { DEFAULT_API_HOST } = require("./defaults"),
-      { createContentHeaders } = require("./utilities/content"),
-      { createBasicAuthorisation } = require("./utilities/authorisation");
+      { isRequestPostRequest } = require("./utilities/request"),
+      { createBasicAuthorisation } = require("./utilities/authorisation"),
+      { createContentHeaders, createAcceptHeaders } = require("./utilities/header");
 
 const { request: remoteRequest } = requestUtilities;
 
@@ -22,14 +22,13 @@ function api(options, request, response) {
         headers = {
           authorization
         },
-        lowerCasePost = POST.toLowerCase(),
-        lowerCaseMethod = method.toLowerCase(),
-        methodPostMethod = (lowerCaseMethod === lowerCasePost); ///
+        requestPostRequest = isRequestPostRequest(request);
 
-  if (methodPostMethod) {
-    const contentHeaders = createContentHeaders(request);
+  if (requestPostRequest) {
+    const acceptHeaders = createAcceptHeaders(request),
+          contentHeaders = createContentHeaders(request);
 
-    Object.assign(headers, contentHeaders);
+    Object.assign(headers, acceptHeaders, contentHeaders);
   }
 
   const _request = remoteRequest(host, uri, parameters, method, headers, (error, _response) => {

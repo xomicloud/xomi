@@ -3,7 +3,7 @@
 const { ACCEPT, CONTENT_TYPE, CONTENT_LENGTH } = require("../constants");
 
 function createAcceptHeaders(request) {
-  const contentHeaders = {},
+  const acceptHeaders = {},
         { headers } = request,
         lowerCaseAccept = ACCEPT.toLowerCase();
 
@@ -11,11 +11,11 @@ function createAcceptHeaders(request) {
     const lowerCaseNameStartsWithLowerCaseAccept = lowerCaseName.startsWith(lowerCaseAccept);
 
     if (lowerCaseNameStartsWithLowerCaseAccept) {
-      contentHeaders[lowerCaseName] = value;
+      acceptHeaders[lowerCaseName] = value;
     }
   });
 
-  return contentHeaders;
+  return acceptHeaders;
 }
 
 function createContentHeaders(request) {

@@ -21,6 +21,7 @@ module.exports = {
   DATA,
   CODE,
   POST,
+  ACCEPT,
   BASE_64,
   OPEN_ID,
   LOCATION,

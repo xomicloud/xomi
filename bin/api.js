@@ -5,8 +5,8 @@ const { requestUtilities } = require("necessary");
 const { pipeline } = require("./utilities/pipeline"),
       { badGatewayError } = require("./http"),
       { DEFAULT_API_HOST } = require("./defaults"),
-      { isRequestPostRequest } = require("./utilities/request"),
       { createBasicAuthorisation } = require("./utilities/authorisation"),
+      { uriFromURL, isRequestPostRequest } = require("./utilities/request"),
       { createContentHeaders, createAcceptHeaders } = require("./utilities/header");
 
 const { request: remoteRequest } = requestUtilities;
@@ -15,7 +15,7 @@ function api(options, request, response) {
   const { url, query, method } = request,
         { apiHost = DEFAULT_API_HOST } = options,
         basicAuthorisation = createBasicAuthorisation(options),
-        uri = url,  ///
+        uri = uriFromURL(url),
         host = apiHost,  ///
         parameters = query, ///
         authorization = basicAuthorisation,  ///

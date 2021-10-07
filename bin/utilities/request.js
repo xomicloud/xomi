@@ -1,6 +1,12 @@
 "use strict";
 
-const { POST } = require("../constants");
+const { POST, EMPTY_STRING } = require("../constants");
+
+function uriFromURL(url) {
+  const uri = url.replace(/\?.*/, EMPTY_STRING);
+
+  return uri;
+}
 
 function isRequestPostRequest(request) {
   const { method } = request,
@@ -13,5 +19,6 @@ function isRequestPostRequest(request) {
 }
 
 module.exports = {
+  uriFromURL,
   isRequestPostRequest
 };

@@ -31,17 +31,15 @@ function api(options, request, response) {
     Object.assign(headers, acceptHeaders, contentHeaders);
   }
 
-  const _request = remoteRequest(host, uri, parameters, method, headers, (error, _response) => {
+  request.pipe(remoteRequest(host, uri, parameters, method, headers, (error, remoteResponse) => {
     if (error) {
       badGatewayError(response, error);
 
       return;
     }
 
-    pipeline(_response, response);
-  });
-
-  request.pipe(_request);
+    pipeline(remoteResponse, response);
+  }));
 }
 
 module.exports = api;

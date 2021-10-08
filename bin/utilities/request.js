@@ -8,17 +8,15 @@ function uriFromURL(url) {
   return uri;
 }
 
-function isRequestPostRequest(request) {
-  const { method } = request,
-        lowerCasePost = POST.toLowerCase(),
+function isMethodPostMethod(method) {
+  const lowerCasePost = POST.toLowerCase(),
         lowerCaseMethod = method.toLowerCase(),
-        methodPostMethod = (lowerCaseMethod === lowerCasePost),
-        requestPostRequest = methodPostMethod;  ///
+        methodPostMethod = (lowerCaseMethod === lowerCasePost);
 
-  return requestPostRequest;
+  return methodPostMethod;
 }
 
 module.exports = {
   uriFromURL,
-  isRequestPostRequest
+  isMethodPostMethod
 };

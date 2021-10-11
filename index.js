@@ -6,7 +6,7 @@ const api = require("./bin/api"),
       cookie = require("./bin/cookie"),
       headerUtilities = require("./bin/utilities/header"),
       requestUtilities = require("./bin/utilities/request"),
-      pipelineUtilities = require("./bin/utilities/pipeline"),
+      responseUtilities = require("./bin/utilities/response"),
       authorisationUtilities = require("./bin/utilities/authorisation");
 
 module.exports = {
@@ -16,6 +16,6 @@ module.exports = {
   cookie,
   headerUtilities,
   requestUtilities,
-  pipelineUtilities,
+  responseUtilities,
   authorisationUtilities
 };

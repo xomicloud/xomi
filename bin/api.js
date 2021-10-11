@@ -2,7 +2,7 @@
 
 const { requestUtilities } = require("necessary");
 
-const { pipeline } = require("./utilities/pipeline"),
+const { pipeline } = require("./utilities/response"),
       { badGatewayError } = require("./http"),
       { DEFAULT_API_HOST } = require("./defaults"),
       { createBasicAuthorisation } = require("./utilities/authorisation"),

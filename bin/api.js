@@ -9,7 +9,7 @@ const { pipeline } = require("./utilities/response"),
       { uriFromURL, isMethodPostMethod } = require("./utilities/request"),
       { createContentHeaders, createAcceptHeaders } = require("./utilities/header");
 
-const { request: remoteRequest } = requestUtilities;
+const { request: makeRequest } = requestUtilities;
 
 function api(options, request, response) {
   const { url, query, method } = request,
@@ -31,7 +31,7 @@ function api(options, request, response) {
     Object.assign(headers, acceptHeaders, contentHeaders);
   }
 
-  request.pipe(remoteRequest(host, uri, parameters, method, headers, (error, remoteResponse) => {
+  const remoteRequest = makeRequest(host, uri, parameters, method, headers, (error, remoteResponse) => {
     if (error) {
       badGatewayError(response, error);
 
@@ -39,7 +39,9 @@ function api(options, request, response) {
     }
 
     pipeline(remoteResponse, response);
-  }));
+  });
+
+  request.pipe(remoteRequest);
 }
 
 module.exports = api;

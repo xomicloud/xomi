@@ -2,7 +2,8 @@
 
 const { requestUtilities } = require("necessary");
 
-const { pipeline } = require("./utilities/response"),
+const { FUNCTION } = require("./constants"),
+      { pipeline } = require("./utilities/response"),
       { badGatewayError } = require("./http"),
       { DEFAULT_API_HOST } = require("./defaults"),
       { createBasicAuthorisation } = require("./utilities/authorisation"),
@@ -12,6 +13,10 @@ const { pipeline } = require("./utilities/response"),
 const { request: makeRequest } = requestUtilities;
 
 function api(options, request, response) {
+  if (typeof request === FUNCTION) {
+    request = request();  ///
+  }
+
   const { url, query, method } = request,
         { apiHost = DEFAULT_API_HOST } = options,
         basicAuthorisation = createBasicAuthorisation(options),

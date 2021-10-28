@@ -2,16 +2,16 @@
 
 const { requestUtilities } = require("necessary");
 
-const { pipeline } = require("./utilities/response"),
-      { badGatewayError } = require("./http"),
+const { badGatewayError } = require("./http"),
       { DEFAULT_API_HOST } = require("./defaults"),
+      { setStatus, setHeaders } = require("./utilities/response"),
       { createBasicAuthorisation } = require("./utilities/authorisation"),
       { uriFromURL, isMethodPostMethod } = require("./utilities/request"),
       { createContentHeaders, createAcceptHeaders } = require("./utilities/header");
 
 const { request: makeRequest } = requestUtilities;
 
-function api(options, request, response) {
+function api(options, request, response, callback = null) {
   const { url, query, method } = request,
         { apiHost = DEFAULT_API_HOST } = options,
         basicAuthorisation = createBasicAuthorisation(options),
@@ -38,7 +38,15 @@ function api(options, request, response) {
       return;
     }
 
-    pipeline(remoteResponse, response);
+    setStatus(remoteResponse, response);
+
+    setHeaders(remoteResponse, response);
+
+    if (callback !== null) {
+      callback();
+    }
+
+    remoteResponse.pipe(response);
   });
 
   request.pipe(remoteRequest);

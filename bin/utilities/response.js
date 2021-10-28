@@ -12,10 +12,6 @@ function pipeline(remoteResponse, response, content = null) {
       response.send(content);
 }
 
-module.exports = {
-  pipeline
-};
-
 function setStatus(remoteResponse, response) {
   const { statusCode } = remoteResponse,
         status = statusCode;  ///
@@ -37,3 +33,9 @@ function setHeaders(remoteResponse, response) {
     }
   }
 }
+
+module.exports = {
+  pipeline,
+  setStatus,
+  setHeaders
+};

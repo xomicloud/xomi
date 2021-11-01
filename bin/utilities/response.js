@@ -13,10 +13,9 @@ function pipeline(remoteResponse, response, content = null) {
 }
 
 function setStatus(remoteResponse, response) {
-  const { statusCode } = remoteResponse,
-        status = statusCode;  ///
+  const { statusCode } = remoteResponse;
 
-  response.status(status);
+  response.status(statusCode);
 }
 
 function setHeaders(remoteResponse, response) {

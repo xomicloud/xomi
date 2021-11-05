@@ -1,6 +1,7 @@
 "use strict";
 
-const { POST, EMPTY_STRING } = require("../constants");
+const { POST_METHOD } = require("../methods"),
+      { EMPTY_STRING } = require("../constants");
 
 function uriFromURL(url) {
   const uri = url.replace(/\?.*/, EMPTY_STRING);
@@ -9,9 +10,9 @@ function uriFromURL(url) {
 }
 
 function isMethodPostMethod(method) {
-  const lowerCasePost = POST.toLowerCase(),
-        lowerCaseMethod = method.toLowerCase(),
-        methodPostMethod = (lowerCaseMethod === lowerCasePost);
+  const lowerCaseMethod = method.toLowerCase(),
+        lowerCasePostMethod = POST_METHOD.toLowerCase(),
+        methodPostMethod = (lowerCaseMethod === lowerCasePostMethod);
 
   return methodPostMethod;
 }

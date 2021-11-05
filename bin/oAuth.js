@@ -7,8 +7,9 @@ const http = require("./http");
 
 const { createBasicAuthorisation } = require("./utilities/authorisation");
 
-const { DEFAULT_CLIENT_URI } = require("./defaults"),
-      { POST, CONTENT_TYPE, OPEN_ID, CONTENT_LENGTH, CODE, AUTHORIZATION_CODE } = require("./constants"),
+const { POST_METHOD } = require("./methods"),
+      { DEFAULT_CLIENT_URI } = require("./defaults"),
+      { CONTENT_TYPE, OPEN_ID, CONTENT_LENGTH, CODE, AUTHORIZATION_CODE } = require("./constants"),
       { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes");
 
 const { request: makeRequest } = requestUtilities,
@@ -57,8 +58,8 @@ function callback(options, code, callback) {
         readable = Readable.from(content),
         host = clientHost,  ///
         uri = clientURI, ///
-        parameters = {},  ///
-        method = POST,
+        parameters = {},
+        method = POST_METHOD,  ///
         headers = createHeaders(options, content),
         request = readable, ///
         remoteRequest = makeRequest(host, uri, parameters, method, headers, (error, remoteResponse) => {

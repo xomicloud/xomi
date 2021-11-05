@@ -1,5 +1,7 @@
 "use strict";
 
+const { pipeline: streamPipeline } = require("stream");
+
 const { TRANSFER_ENCODING } = require("../constants");
 
 function pipeline(remoteResponse, response, content = null) {
@@ -8,7 +10,9 @@ function pipeline(remoteResponse, response, content = null) {
   setHeaders(remoteResponse, response);
 
   (content === null) ?
-    remoteResponse.pipe(response) :
+    streamPipeline(remoteResponse, response, (error) => {
+      ///
+    }) :
       response.send(content);
 }
 

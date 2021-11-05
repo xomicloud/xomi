@@ -1,6 +1,6 @@
 "use strict";
 
-const { Readable } = require("stream"),
+const { pipeline, Readable } = require("stream"),
       { httpUtilities, requestUtilities } = require("necessary");
 
 const http = require("./http");
@@ -60,7 +60,7 @@ function callback(options, code, callback) {
         parameters = {},  ///
         readable = Readable.from(content);
 
-  readable.pipe(post(host, uri, parameters, headers, (error, remoteResponse) => {
+  pipeline(readable, post(host, uri, parameters, headers, (error, remoteResponse) => {
     let accessToken = null,
         refreshToken = null;
 
@@ -90,7 +90,9 @@ function callback(options, code, callback) {
 
       callback(error, accessToken, refreshToken);
     });
-  }));
+  }), (error) => {
+    ///
+  });
 }
 
 module.exports = {

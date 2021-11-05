@@ -1,20 +1,6 @@
 "use strict";
 
-const { pipeline: streamPipeline } = require("stream");
-
 const { TRANSFER_ENCODING } = require("../constants");
-
-function pipeline(remoteResponse, response, content = null) {
-  setStatus(remoteResponse, response);
-
-  setHeaders(remoteResponse, response);
-
-  (content === null) ?
-    streamPipeline(remoteResponse, response, (error) => {
-      ///
-    }) :
-      response.send(content);
-}
 
 function setStatus(remoteResponse, response) {
   const { statusCode } = remoteResponse;
@@ -38,7 +24,6 @@ function setHeaders(remoteResponse, response) {
 }
 
 module.exports = {
-  pipeline,
   setStatus,
   setHeaders
 };

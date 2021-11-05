@@ -8,10 +8,10 @@ const http = require("./http");
 const { createBasicAuthorisation } = require("./utilities/authorisation");
 
 const { DEFAULT_CLIENT_URI } = require("./defaults"),
-      { CONTENT_TYPE, OPEN_ID, CONTENT_LENGTH, CODE, AUTHORIZATION_CODE } = require("./constants"),
+      { POST, CONTENT_TYPE, OPEN_ID, CONTENT_LENGTH, CODE, AUTHORIZATION_CODE } = require("./constants"),
       { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes");
 
-const { post } = requestUtilities,
+const { request: makeRequest } = requestUtilities,
       { queryStringFromParameters } = httpUtilities;
 
 function redirect(options, response, createAccount = false) {
@@ -54,43 +54,46 @@ function redirect(options, response, createAccount = false) {
 function callback(options, code, callback) {
   const { clientHost, clientURI = DEFAULT_CLIENT_URI, } = options,
         content = createContent(options, code),
-        headers = createHeaders(options, content),
+        readable = Readable.from(content),
         host = clientHost,  ///
         uri = clientURI, ///
         parameters = {},  ///
-        readable = Readable.from(content);
+        method = POST,
+        headers = createHeaders(options, content),
+        request = readable, ///
+        remoteRequest = makeRequest(host, uri, parameters, method, headers, (error, remoteResponse) => {
+          let accessToken = null,
+              refreshToken = null;
 
-  pipeline(readable, post(host, uri, parameters, headers, (error, remoteResponse) => {
-    let accessToken = null,
-        refreshToken = null;
+          if (error) {
+            callback(error, accessToken, refreshToken);
 
-    if (error) {
-      callback(error, accessToken, refreshToken);
+            return;
+          }
 
-      return;
-    }
+          http.bodyFromResponse(remoteResponse, (body) => {
+            let json;
 
-    http.bodyFromResponse(remoteResponse, (body) => {
-      let json;
+            const jsonString = body;  ///
 
-      const jsonString = body;  ///
+            try {
+              json = JSON.parse(jsonString);
+            } catch (error) {
+              callback(error, accessToken, refreshToken);
 
-      try {
-        json = JSON.parse(jsonString);
-      } catch (error) {
-        callback(error, accessToken, refreshToken);
+              return;
+            }
 
-        return;
-      }
+            const { access_token = null, refresh_token = null } = json;
 
-      const { access_token = null, refresh_token = null } = json;
+            accessToken = access_token; ///
+            refreshToken = refresh_token; ///
 
-      accessToken = access_token; ///
-      refreshToken = refresh_token; ///
+            callback(error, accessToken, refreshToken);
+          });
+        });
 
-      callback(error, accessToken, refreshToken);
-    });
-  }), (error) => {
+  pipeline(request, remoteRequest, (error) => {
     ///
   });
 }

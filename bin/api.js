@@ -1,7 +1,6 @@
 "use strict";
 
-const { pipeline } = require("stream"),
-      { requestUtilities } = require("necessary");
+const { requestUtilities } = require("necessary");
 
 const { badGatewayError } = require("./http"),
       { DEFAULT_API_HOST } = require("./defaults"),
@@ -47,14 +46,10 @@ function api(options, request, response, callback = null) {
       callback();
     }
 
-    pipeline(remoteResponse, response, (error) => {
-      ///
-    });
+    remoteResponse.pipe(response);
   });
 
-  pipeline(request, remoteRequest, (error) => {
-    ///
-  });
+  request.pipe(remoteRequest);
 }
 
 module.exports = api;

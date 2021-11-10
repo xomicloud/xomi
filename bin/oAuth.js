@@ -13,7 +13,7 @@ const { POST_METHOD } = require("./methods"),
       { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes");
 
 const { request: makeRequest } = requestUtilities,
-      { queryStringFromParameters } = httpUtilities;
+      { queryStringFromQuery } = httpUtilities;
 
 function redirect(options, response, createAccount = false) {
   const { clientHost, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,
@@ -21,7 +21,7 @@ function redirect(options, response, createAccount = false) {
         client_id = clientId,  ///
         redirect_uri = redirectURI,  ///
         response_type = CODE, ///
-        parameters = {
+        query = {
           scope,
           client_id,
           redirect_uri,
@@ -29,7 +29,7 @@ function redirect(options, response, createAccount = false) {
         };
 
   if (state) {
-    Object.assign(parameters, {
+    Object.assign(query, {
       state
     });
   }
@@ -37,16 +37,16 @@ function redirect(options, response, createAccount = false) {
   if (createAccount) {
     const create_account = createAccount; ///
 
-    Object.assign(parameters, {
+    Object.assign(query, {
       create_account
     });
   }
 
   if (additionalParameters) {
-    Object.assign(parameters, additionalParameters);
+    Object.assign(query, additionalParameters);
   }
 
-  const queryString = queryStringFromParameters(parameters),
+  const queryString = queryStringFromQuery(query),
         location = `${clientHost}${clientURI}?${queryString}`;
 
   http.redirect(response, location);
@@ -58,11 +58,11 @@ function callback(options, code, callback) {
         readable = Readable.from(content),
         host = clientHost,  ///
         uri = clientURI, ///
-        parameters = {},
+        query = {},
         method = POST_METHOD,  ///
         headers = createHeaders(options, content),
         request = readable, ///
-        remoteRequest = makeRequest(host, uri, parameters, method, headers, (error, remoteResponse) => {
+        remoteRequest = makeRequest(host, uri, query, method, headers, (error, remoteResponse) => {
           let accessToken = null,
               refreshToken = null;
 
@@ -120,22 +120,22 @@ function createHeaders(options, content) {
 }
 
 function createContent(options, code) {
-  const parameters = createParameters(options, code),
-        queryString = queryStringFromParameters(parameters),
+  const query = createQuery(options, code),
+        queryString = queryStringFromQuery(query),
         content = queryString;  ///
 
   return content;
 }
 
-function createParameters(options, code) {
+function createQuery(options, code) {
   const { redirectURI } = options,
         grant_type = AUTHORIZATION_CODE,
         redirect_uri = redirectURI,  ///
-        parameters = {
+        query = {
           code,
           grant_type,
           redirect_uri
         };
 
-  return parameters;
+  return query;
 }

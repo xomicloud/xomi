@@ -17,7 +17,6 @@ function api(options, request, response, callback = null) {
         basicAuthorisation = createBasicAuthorisation(options),
         uri = uriFromURL(url),
         host = apiHost,  ///
-        parameters = query, ///
         authorization = basicAuthorisation,  ///
         headers = {
           authorization
@@ -31,7 +30,7 @@ function api(options, request, response, callback = null) {
     Object.assign(headers, acceptHeaders, contentHeaders);
   }
 
-  const remoteRequest = makeRequest(host, uri, parameters, method, headers, (error, remoteResponse) => {
+  const remoteRequest = makeRequest(host, uri, query, method, headers, (error, remoteResponse) => {
     if (error) {
       badGatewayError(response, error);
 

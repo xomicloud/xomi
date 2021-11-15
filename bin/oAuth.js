@@ -12,8 +12,8 @@ const { POST_METHOD } = require("./methods"),
       { CONTENT_TYPE, OPEN_ID, CONTENT_LENGTH, CODE, AUTHORIZATION_CODE } = require("./constants"),
       { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes");
 
-const { request: makeRequest } = requestUtilities,
-      { queryStringFromQuery } = httpUtilities;
+const { queryStringFromQuery } = httpUtilities,
+      { request: makeRequest } = requestUtilities;
 
 function redirect(options, response, createAccount = false) {
   const { clientHost, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,

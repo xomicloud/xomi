@@ -5,13 +5,13 @@ const { httpUtilities } = require("necessary");
 const { queryStringFromQuery } = httpUtilities;
 
 function test() {
-  // const test = "test",
-  //       query = {
-  //         test
-  //       },
-  //       queryString = queryStringFromQuery(query);
+  const funcs = [];
 
-  return JSON.stringify(httpUtilities);
+  for (var func in httpUtilities) {
+    funcs.push(func);
+  }
+
+  return JSON.stringify(funcs);
 }
 
 module.exports = test;

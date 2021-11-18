@@ -36,15 +36,15 @@ function internalServerError(response, error) {
   response.end(`${error}`); ///
 }
 
-function bodyFromResponse(response, callback) {
-  let body = EMPTY_STRING;
+function contentFromResponse(response, callback) {
+  let content = EMPTY_STRING;
 
   response.on(DATA, (data) => {
-    body += data;
+    content += data;
   });
 
   response.on(END, () => {
-    callback(body);
+    callback(content);
   });
 }
 
@@ -53,5 +53,5 @@ module.exports = {
   redirect,
   badGatewayError,
   internalServerError,
-  bodyFromResponse
+  contentFromResponse
 };

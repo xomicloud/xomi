@@ -72,10 +72,10 @@ function callback(options, code, callback) {
             return;
           }
 
-          http.bodyFromResponse(remoteResponse, (body) => {
+          http.contentFromResponse(remoteResponse, (content) => {
             let json;
 
-            const jsonString = body;  ///
+            const jsonString = content;  ///
 
             try {
               json = JSON.parse(jsonString);

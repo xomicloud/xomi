@@ -5,7 +5,7 @@ const { TRANSFER_ENCODING } = require("../constants");
 function setStatus(remoteResponse, response) {
   const { statusCode } = remoteResponse;
 
-  response.status && response.status(statusCode); ///
+  response.status(statusCode);
 }
 
 function setHeaders(remoteResponse, response) {
@@ -18,7 +18,7 @@ function setHeaders(remoteResponse, response) {
     if (lowerCaseName !== lowerCaseTransferEncoding) {
       const value = headers[name];
 
-      response.setHeader && response.setHeader(name, value);  ///
+      response.setHeader(name, value);  ///
     }
   }
 }

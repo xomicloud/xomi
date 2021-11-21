@@ -9,7 +9,7 @@ const { badGatewayError } = require("./http"),
       { uriFromURL, isMethodPostMethod } = require("./utilities/request"),
       { createContentHeaders, createAcceptHeaders } = require("./utilities/header");
 
-const { request: makeRequest } = requestUtilities;
+const { request: createRequest } = requestUtilities;
 
 function api(options, request, response, callback = null) {
   const { url, query, method } = request,
@@ -30,7 +30,7 @@ function api(options, request, response, callback = null) {
     Object.assign(headers, acceptHeaders, contentHeaders);
   }
 
-  const remoteRequest = makeRequest(host, uri, query, method, headers, (error, remoteResponse) => {
+  const remoteRequest = createRequest(host, uri, query, method, headers, (error, remoteResponse) => {
     if (error) {
       badGatewayError(response, error);
 

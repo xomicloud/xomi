@@ -13,7 +13,7 @@ const { POST_METHOD } = require("./methods"),
       { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes");
 
 const { queryStringFromQuery } = httpUtilities,
-      { request: makeRequest } = requestUtilities;
+      { request: createRequest } = requestUtilities;
 
 function redirect(options, response, createAccount = false) {
   const { clientHost, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,
@@ -62,7 +62,7 @@ function callback(options, code, callback) {
         method = POST_METHOD,  ///
         headers = createHeaders(options, content),
         request = readable, ///
-        remoteRequest = makeRequest(host, uri, query, method, headers, (error, remoteResponse) => {
+        remoteRequest = createRequest(host, uri, query, method, headers, (error, remoteResponse) => {
           let accessToken = null,
               refreshToken = null;
 

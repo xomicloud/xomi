@@ -20,6 +20,14 @@ function redirect(response, location) {
   response.end(EMPTY_STRING);
 }
 
+function plainText(response, text) {
+  response.setHeader(CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE);
+
+  response.status(OK_200_STATUS_CODE);
+
+  response.end(text);
+}
+
 function badGatewayError(response, error) {
   response.setHeader(CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE);
 
@@ -51,6 +59,7 @@ function contentFromResponse(response, callback) {
 module.exports = {
   html,
   redirect,
+  plainText,
   badGatewayError,
   internalServerError,
   contentFromResponse

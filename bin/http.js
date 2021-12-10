@@ -2,7 +2,11 @@
 
 const { END, DATA, LOCATION, EMPTY_STRING, CONTENT_TYPE } = require("./constants"),
       { TEXT_HTML_CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE } = require("./contentTypes"),
-      { OK_200_STATUS_CODE, SEE_OTHER_303_STATUS_CODE, BAD_GATEWAY_ERROR_502_STATUS_CODE, INTERNAL_SERVER_ERROR_500_STATUS_CODE } = require("./statusCodes");
+      { OK_200_STATUS_CODE,
+        SEE_OTHER_303_STATUS_CODE,
+        NO_CONTENT_204_STATUS_CODE,
+        BAD_GATEWAY_ERROR_502_STATUS_CODE,
+        INTERNAL_SERVER_ERROR_500_STATUS_CODE } = require("./statusCodes");
 
 function html(response, html) {
   response.setHeader(CONTENT_TYPE, TEXT_HTML_CONTENT_TYPE);
@@ -26,6 +30,12 @@ function plainText(response, text) {
   response.status(OK_200_STATUS_CODE);
 
   response.end(text);
+}
+
+function noContent(response) {
+  response.status(NO_CONTENT_204_STATUS_CODE);
+
+  response.end();
 }
 
 function badGatewayError(response, error) {
@@ -60,6 +70,7 @@ module.exports = {
   html,
   redirect,
   plainText,
+  noContent,
   badGatewayError,
   internalServerError,
   contentFromResponse

@@ -8,7 +8,7 @@ const http = require("./http");
 const { createBasicAuthorisation } = require("./utilities/authorisation");
 
 const { POST_METHOD } = require("./methods"),
-      { DEFAULT_CLIENT_URI } = require("./defaults"),
+      { DEFAULT_CLIENT_URI, DEFAULT_CLIENT_HOST } = require("./defaults"),
       { CONTENT_TYPE, OPEN_ID, CONTENT_LENGTH, CODE, AUTHORIZATION_CODE } = require("./constants"),
       { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes");
 
@@ -16,7 +16,7 @@ const { queryStringFromQuery } = httpUtilities,
       { createRequest: createRemoteRequest } = requestUtilities;
 
 function redirect(options, response, createAccount = false) {
-  const { clientHost, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,
+  const { clientHost = DEFAULT_CLIENT_HOST, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,
         scope = OPEN_ID,  ///
         client_id = clientId,  ///
         redirect_uri = redirectURI,  ///
@@ -53,7 +53,7 @@ function redirect(options, response, createAccount = false) {
 }
 
 function callback(options, code, callback) {
-  const { clientHost, clientURI = DEFAULT_CLIENT_URI, } = options,
+  const { clientHost = DEFAULT_CLIENT_HOST, clientURI = DEFAULT_CLIENT_URI, } = options,
         content = createContent(options, code),
         readable = Readable.from(content),
         host = clientHost,  ///

@@ -1,7 +1,10 @@
 "use strict";
 
-const { POST_METHOD } = require("../methods"),
-      { EMPTY_STRING } = require("../constants");
+const { methods } = require("necessary");
+
+const { EMPTY_STRING } = require("../constants");
+
+const { POST_METHOD } = methods;
 
 function uriFromURL(url) {
   const uri = url.replace(/\?.*/, EMPTY_STRING);

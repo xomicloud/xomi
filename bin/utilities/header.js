@@ -1,14 +1,16 @@
 "use strict";
 
-const { ACCEPT, CONTENT_TYPE, CONTENT_LENGTH } = require("../constants");
+const { headers } = require("necessary");
+
+const { ACCEPT_HEADER, CONTENT_TYPE_HEADER, CONTENT_LENGTH_HEADER } = headers;
 
 function createAcceptHeaders(request) {
   const acceptHeaders = {},
         { headers } = request,
-        lowerCaseAccept = ACCEPT.toLowerCase();
+        lowerCaseAcceptHeader = ACCEPT_HEADER.toLowerCase();
 
   forEachLowerCaseNameAndValue(headers, (lowerCaseName, value) => {
-    const lowerCaseNameStartsWithLowerCaseAccept = lowerCaseName.startsWith(lowerCaseAccept);
+    const lowerCaseNameStartsWithLowerCaseAccept = lowerCaseName.startsWith(lowerCaseAcceptHeader);
 
     if (lowerCaseNameStartsWithLowerCaseAccept) {
       acceptHeaders[lowerCaseName] = value;
@@ -21,11 +23,11 @@ function createAcceptHeaders(request) {
 function createContentHeaders(request) {
   const contentHeaders = {},
         { headers } = request,
-        lowerCaseContentType = CONTENT_TYPE.toLowerCase(),
-        lowerCaseContentLength = CONTENT_LENGTH.toLowerCase();
+        lowerCaseContentTypeHeader = CONTENT_TYPE_HEADER.toLowerCase(),
+        lowerCaseContentLengthHeader = CONTENT_LENGTH_HEADER.toLowerCase();
 
   forEachLowerCaseNameAndValue(headers, (lowerCaseName, value) => {
-    if ((lowerCaseName === lowerCaseContentType) || (lowerCaseName === lowerCaseContentLength)) {
+    if ((lowerCaseName === lowerCaseContentTypeHeader) || (lowerCaseName === lowerCaseContentLengthHeader)) {
       contentHeaders[lowerCaseName] = value;
     }
   });

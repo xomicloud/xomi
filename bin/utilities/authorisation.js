@@ -1,15 +1,15 @@
 "use strict";
 
-const { arrayUtilities } = require("necessary");
-
-const { BASE_64 } = require("../constants");
+const { encodings, arrayUtilities } = require("necessary");
 
 const { second, third } = arrayUtilities;
+
+const { BASE64_ENCODING } = encodings;
 
 function createBasicAuthorisation(options) {
   const { clientId, clientSecret } = options,
         digest = `${clientId}:${clientSecret}`,
-        encodedDigest = Buffer.from(digest).toString(BASE_64),
+        encodedDigest = Buffer.from(digest).toString(BASE64_ENCODING),
         basicAuthorisation = `Basic ${encodedDigest}`;
 
   return basicAuthorisation;
@@ -64,7 +64,7 @@ function digestFromBasicAuthorisation(basicAuthorisation) {
     const secondMatch = second(matches),
           encodedDigest = secondMatch;  ///
 
-    digest = Buffer.from(encodedDigest, BASE_64).toString();
+    digest = Buffer.from(encodedDigest, BASE64_ENCODING).toString();
   }
 
   return digest;

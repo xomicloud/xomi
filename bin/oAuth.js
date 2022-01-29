@@ -1,19 +1,19 @@
 "use strict";
 
 const { Readable } = require("stream"),
-      { httpUtilities, requestUtilities } = require("necessary");
+      { methods, headers, httpUtilities, contentTypes, requestUtilities } = require("necessary");
 
 const http = require("./http");
 
-const { createBasicAuthorisation } = require("./utilities/authorisation");
+const { createBasicAuthorisation } = require("./utilities/authorisation"),
+      { OPEN_ID, CODE, AUTHORIZATION_CODE } = require("./constants"),
+      { DEFAULT_CLIENT_URI, DEFAULT_CLIENT_HOST } = require("./defaults");
 
-const { POST_METHOD } = require("./methods"),
-      { DEFAULT_CLIENT_URI, DEFAULT_CLIENT_HOST } = require("./defaults"),
-      { CONTENT_TYPE, OPEN_ID, CONTENT_LENGTH, CODE, AUTHORIZATION_CODE } = require("./constants"),
-      { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = require("./contentTypes");
-
-const { queryStringFromQuery } = httpUtilities,
-      { createRequest: createRemoteRequest } = requestUtilities;
+const { POST_METHOD } = methods,
+      { queryStringFromQuery } = httpUtilities,
+      { createRequest: createRemoteRequest } = requestUtilities,
+      { CONTENT_TYPE_HEADER, CONTENT_LENGTH_HEADER } = headers,
+      { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = contentTypes;
 
 function redirect(options, response, createAccount = false) {
   const { clientHost = DEFAULT_CLIENT_HOST, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,
@@ -113,8 +113,9 @@ function createHeaders(options, content) {
           authorization
         };
 
-  headers[CONTENT_TYPE] = contentType;
-  headers[CONTENT_LENGTH] = contentLength;
+  headers[CONTENT_TYPE_HEADER] = contentType;
+
+  headers[CONTENT_LENGTH_HEADER] = contentLength;
 
   return headers;
 }

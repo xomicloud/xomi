@@ -1,6 +1,8 @@
 "use strict";
 
-const { TRANSFER_ENCODING } = require("../constants");
+const { headers } = require("necessary");
+
+const { TRANSFER_ENCODING_HEADER } = headers;
 
 function setStatus(remoteResponse, response) {
   const { statusCode } = remoteResponse;
@@ -13,9 +15,9 @@ function setHeaders(remoteResponse, response) {
 
   for (const name in headers) {
     const lowerCaseName = name.toLowerCase(),
-          lowerCaseTransferEncoding = TRANSFER_ENCODING.toLowerCase();
+          lowerCaseTransferEncodingHeader = TRANSFER_ENCODING_HEADER.toLowerCase();
 
-    if (lowerCaseName !== lowerCaseTransferEncoding) {
+    if (lowerCaseName !== lowerCaseTransferEncodingHeader) {
       const value = headers[name];
 
       response.setHeader(name, value);  ///

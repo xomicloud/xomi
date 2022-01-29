@@ -1,16 +1,20 @@
 "use strict";
 
-const { END, DATA, LOCATION, EMPTY_STRING, CONTENT_TYPE } = require("./constants"),
-      { TEXT_HTML_CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE, APPLICATION_JSON_CONTENT_TYPE } = require("./contentTypes"),
+const { headers, statusCodes, contentTypes } = require("necessary");
+
+const { END, DATA, LOCATION, EMPTY_STRING } = require("./constants");
+
+const { CONTENT_TYPE_HEADER } = headers,
       { OK_200_STATUS_CODE,
         SEE_OTHER_303_STATUS_CODE,
         NO_CONTENT_204_STATUS_CODE,
         UNAUTHORISED_401_STATUS_CODE,
         BAD_GATEWAY_ERROR_502_STATUS_CODE,
-        INTERNAL_SERVER_ERROR_500_STATUS_CODE } = require("./statusCodes");
+        INTERNAL_SERVER_ERROR_500_STATUS_CODE } = statusCodes,
+      { TEXT_HTML_CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE, APPLICATION_JSON_CONTENT_TYPE } = contentTypes;
 
 function html(response, html) {
-  response.setHeader(CONTENT_TYPE, TEXT_HTML_CONTENT_TYPE);
+  response.setHeader(CONTENT_TYPE_HEADER, TEXT_HTML_CONTENT_TYPE);
 
   response.status(OK_200_STATUS_CODE);
 
@@ -20,7 +24,7 @@ function html(response, html) {
 function json(response, json) {
   json = JSON.stringify(json);  ///
 
-  response.setHeader(CONTENT_TYPE, APPLICATION_JSON_CONTENT_TYPE);
+  response.setHeader(CONTENT_TYPE_HEADER, APPLICATION_JSON_CONTENT_TYPE);
 
   response.status(OK_200_STATUS_CODE);
 
@@ -36,7 +40,7 @@ function redirect(response, location) {
 }
 
 function plainText(response, text) {
-  response.setHeader(CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE);
+  response.setHeader(CONTENT_TYPE_HEADER, TEXT_PLAIN_CONTENT_TYPE);
 
   response.status(OK_200_STATUS_CODE);
 
@@ -56,7 +60,7 @@ function unauthorised(response) {
 }
 
 function badGatewayError(response, error) {
-  response.setHeader(CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE);
+  response.setHeader(CONTENT_TYPE_HEADER, TEXT_PLAIN_CONTENT_TYPE);
 
   response.status(BAD_GATEWAY_ERROR_502_STATUS_CODE);
 
@@ -64,7 +68,7 @@ function badGatewayError(response, error) {
 }
 
 function internalServerError(response, error) {
-  response.setHeader(CONTENT_TYPE, TEXT_PLAIN_CONTENT_TYPE);
+  response.setHeader(CONTENT_TYPE_HEADER, TEXT_PLAIN_CONTENT_TYPE);
 
   response.status(INTERNAL_SERVER_ERROR_500_STATUS_CODE);
 

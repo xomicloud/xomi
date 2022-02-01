@@ -20,7 +20,7 @@ You only need to do this if you are interested in Xomi's development, however.
 
 ## Usage
 
-All of the functions take a plain old JavaScript object as their first `configuration` argument, the properties of which must be the client configuration. If you are using the standard set of environment variables then the following code snippet will return the required object:
+All of the functions take a plain old JavaScript object as their first `configuration` argument, the properties of which must be the client configuration. If you are using the standard set of environment variables then the following will return the required object:
 
 ```
 "use strict";
@@ -43,23 +43,23 @@ You invoke the functions as follows:
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const configuration = require("configuration");
+const configuration = require("../configuration");
 
 oAuth.callback(configuration, ...); //  Make an OAuth callback
 
 cookie.setAuthenticationCookie(configuration, ...)  //  Set an authentication cookie
 ```
 
-Note the use of the aforementioned `configuration` argument.
+Note the use of the aforementioned `configuration` argument which is assumed to be returned as described above.
 
 ### OAuth functionality
 
 - `redirect()`
 - `callback()`
 
-These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback. Full usage examples can be found in the JavaScript secure application, a link to which can be found in the related links section near the foot of this readme file.
+These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback, respectively. Usage examples can be found in the [JavaScript secure application](https://github.com/xomicloud/javascript-secure-application).
 
-* The `redirect()` function takes an `option` argument and a `response` argument. The response is expected to be an instance of Node's [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) class. You can also pass a third, optional `createAccount` argument that, if set to true, instructs the authentication site to show the form to create an account rather than the sign up form.
+* The `redirect()` function takes an `configuration` argument and a `response` argument. The response is expected to be an instance of Node's [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) class. You can also pass a third, optional `createAccount` argument that, if set to true, instructs the authentication site to show the form to create an account rather than the sign up form.
 
 ```
 const { oAuth } = require("@xomicloud/xomi");
@@ -73,7 +73,7 @@ function signInHandler(request, response, next) {
 }
 ```
 
-* The `callback()` function takes an `option` argument, a `code` argument and a `callback` function argument. The `code` argument is expected to be the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` and an `accessToken` argument.
+* The `callback()` function takes an `configuration` argument, a `code` argument and a `callback` function argument. The `code` argument is expected to be the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` and an `accessToken` argument.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -99,7 +99,7 @@ function callbackHandler(request, response, next) {
 
 These functions supply basic authentication cookie functionality. Full usage examples can be found in the JavaScript secure application, a link to which can be found in the related links section near the foot of this readme file.
 
-* The `setAuthenticationCookie()` function takes an `option` argument, a `response` argument and an `accessToken` argument. The response is expected to be an instance of Node's ServerResponse class. It also takes an optional `rememberMe` argument which, if est to true, sets the expiry of the cookie well into the future.
+* The `setAuthenticationCookie()` function takes an `configuration` argument, a `response` argument and an `accessToken` argument. The response is expected to be an instance of Node's ServerResponse class. It also takes an optional `rememberMe` argument which, if est to true, sets the expiry of the cookie well into the future.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -123,7 +123,7 @@ function callbackHandler(request, response, next) {
 }
 ```
 
-* The `removeAuthenticationCookie()` function takes an `option` argument and a `response` argument.
+* The `removeAuthenticationCookie()` function takes an `configuration` argument and a `response` argument.
 
 ```
 const { cookie, oAuth } = require("@xomicloud/xomi");
@@ -137,7 +137,7 @@ function signOutHandler(request, response, next) {
 }
 ```
 
-* The `isAuthenticationCookiePresent()` function takes an `option` argument and a `response` argument.
+* The `isAuthenticationCookiePresent()` function takes an `configuration` argument and a `response` argument.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -157,7 +157,7 @@ function homePageHandler(request, response, next) {
 }
 ```
 
-* The `getAccessTokenFromAuthenticationCookie()` function similarly takes an `option` argument and a `response` argument.
+* The `getAccessTokenFromAuthenticationCookie()` function similarly takes an `configuration` argument and a `response` argument.
 
 ## Related links
 

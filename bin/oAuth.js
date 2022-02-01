@@ -15,8 +15,8 @@ const { POST_METHOD } = methods,
       { CONTENT_TYPE_HEADER, CONTENT_LENGTH_HEADER } = headers,
       { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = contentTypes;
 
-function redirect(options, response, createAccount = false) {
-  const { clientHost = DEFAULT_CLIENT_HOST, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = options,
+function redirect(configuration, response, createAccount = false) {
+  const { clientHost = DEFAULT_CLIENT_HOST, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = configuration,
         scope = OPEN_ID,  ///
         client_id = clientId,  ///
         redirect_uri = redirectURI,  ///
@@ -52,15 +52,15 @@ function redirect(options, response, createAccount = false) {
   http.redirect(response, location);
 }
 
-function callback(options, code, callback) {
-  const { clientHost = DEFAULT_CLIENT_HOST, clientURI = DEFAULT_CLIENT_URI, } = options,
-        content = createContent(options, code),
+function callback(configuration, code, callback) {
+  const { clientHost = DEFAULT_CLIENT_HOST, clientURI = DEFAULT_CLIENT_URI, } = configuration,
+        content = createContent(configuration, code),
         readable = Readable.from(content),
         host = clientHost,  ///
         uri = clientURI, ///
         query = {},
         method = POST_METHOD,  ///
-        headers = createHeaders(options, content),
+        headers = createHeaders(configuration, content),
         request = readable, ///
         remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
           let accessToken = null,
@@ -102,11 +102,11 @@ module.exports = {
   callback
 };
 
-function createHeaders(options, content) {
+function createHeaders(configuration, content) {
   const accept = APPLICATION_JSON_CONTENT_TYPE,
         contentType = APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE,
         contentLength = content.length,
-        basicAuthorisation = createBasicAuthorisation(options),
+        basicAuthorisation = createBasicAuthorisation(configuration),
         authorization = basicAuthorisation, ///
         headers = {
           accept,
@@ -120,16 +120,16 @@ function createHeaders(options, content) {
   return headers;
 }
 
-function createContent(options, code) {
-  const query = createQuery(options, code),
+function createContent(configuration, code) {
+  const query = createQuery(configuration, code),
         queryString = queryStringFromQuery(query),
         content = queryString;  ///
 
   return content;
 }
 
-function createQuery(options, code) {
-  const { redirectURI } = options,
+function createQuery(configuration, code) {
+  const { redirectURI } = configuration,
         grant_type = AUTHORIZATION_CODE,
         redirect_uri = redirectURI,  ///
         query = {

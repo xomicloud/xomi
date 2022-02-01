@@ -2,45 +2,45 @@
 
 const { AUTHENTICATION, AUTHENTICATION_COOKIE_EXPIRES } = require("./constants");
 
-function setAuthenticationCookie(options, response, accessToken, rememberMe = false) {
-  const authenticationCookieName = getAuthenticationCookieName(options),
+function setAuthenticationCookie(configuration, response, accessToken, rememberMe = false) {
+  const authenticationCookieName = getAuthenticationCookieName(configuration),
         access_token = accessToken, ///
         json = {
           access_token
         },
         name = authenticationCookieName,  ///
         value = JSON.stringify(json),
-        parameters = getParameters(options, rememberMe);
+        parameters = getParameters(configuration, rememberMe);
 
   response.cookie(name, value, parameters);
 }
 
-function removeAuthenticationCookie(options, response) {
-  const authenticationCookieNAme = getAuthenticationCookieName(options),
+function removeAuthenticationCookie(configuration, response) {
+  const authenticationCookieNAme = getAuthenticationCookieName(configuration),
         name = authenticationCookieNAme,  ///
         rememberMe = false,
-        parameters = getParameters(options, rememberMe);
+        parameters = getParameters(configuration, rememberMe);
 
   response.clearCookie(name, parameters);
 }
 
-function isAuthenticationCookiePresent(options, request) {
+function isAuthenticationCookiePresent(configuration, request) {
   const { cookies } = request,
-        authenticationCookieNAme = getAuthenticationCookieName(options),
+        authenticationCookieNAme = getAuthenticationCookieName(configuration),
         name = authenticationCookieNAme,  ///
         authenticationCookiePresent = !!cookies[name];
 
   return authenticationCookiePresent;
 }
 
-function getAccessTokenFromAuthenticationCookie(options, request) {
+function getAccessTokenFromAuthenticationCookie(configuration, request) {
   let accessToken = null;
 
-  const authenticationCookiePresent = isAuthenticationCookiePresent(options, request);
+  const authenticationCookiePresent = isAuthenticationCookiePresent(configuration, request);
 
   if (authenticationCookiePresent) {
     const { cookies } = request,
-          authenticationCookieNAme = getAuthenticationCookieName(options),
+          authenticationCookieNAme = getAuthenticationCookieName(configuration),
           name = authenticationCookieNAme,  ///
           value = cookies[name];
 
@@ -64,16 +64,16 @@ module.exports = {
   getAccessTokenFromAuthenticationCookie
 };
 
-function getAuthenticationCookieName(options) {
-  const { clientId } = options,
+function getAuthenticationCookieName(configuration) {
+  const { clientId } = configuration,
         authenticationCookieName = `${AUTHENTICATION}.${clientId}`;
 
   return authenticationCookieName;
 }
 
-function getParameters(options, rememberMe) {
+function getParameters(configuration, rememberMe) {
   const parameters = {},
-        { domain } = options;
+        { domain } = configuration;
 
   if (domain) {
     Object.assign(parameters, {

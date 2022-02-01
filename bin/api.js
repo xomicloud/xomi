@@ -11,10 +11,10 @@ const { badGatewayError } = require("./http"),
 
 const { createRequest: createRemoteRequest } = requestUtilities;
 
-function api(options, request, response, callback = null) {
+function api(configuration, request, response, callback = null) {
   const { url, query, method } = request,
-        { apiHost = DEFAULT_API_HOST } = options,
-        basicAuthorisation = createBasicAuthorisation(options),
+        { apiHost = DEFAULT_API_HOST } = configuration,
+        basicAuthorisation = createBasicAuthorisation(configuration),
         uri = uriFromURL(url),
         host = apiHost,  ///
         authorization = basicAuthorisation,  ///

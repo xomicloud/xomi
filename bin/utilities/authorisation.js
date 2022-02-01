@@ -6,8 +6,8 @@ const { second, third } = arrayUtilities;
 
 const { BASE64_ENCODING } = encodings;
 
-function createBasicAuthorisation(options) {
-  const { clientId, clientSecret } = options,
+function createBasicAuthorisation(configuration) {
+  const { clientId, clientSecret } = configuration,
         digest = `${clientId}:${clientSecret}`,
         encodedDigest = Buffer.from(digest).toString(BASE64_ENCODING),
         basicAuthorisation = `Basic ${encodedDigest}`;

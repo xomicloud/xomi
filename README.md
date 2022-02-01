@@ -20,7 +20,7 @@ You only need to do this if you are interested in Xomi's development, however.
 
 ## Usage
 
-All of the functions take a plain old JavaScript object as their first `options` argument, the properties of which must be the client configuration. If you are using the standard set of environment variables then the following code snippet will return the required object:
+All of the functions take a plain old JavaScript object as their first `configuration` argument, the properties of which must be the client configuration. If you are using the standard set of environment variables then the following code snippet will return the required object:
 
 ```
 "use strict";
@@ -43,14 +43,14 @@ You invoke the functions as follows:
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const options = require("options");
+const configuration = require("configuration");
 
-oAuth.callback(options, ...); //  Make an OAuth callback
+oAuth.callback(configuration, ...); //  Make an OAuth callback
 
-cookie.setAuthenticationCookie(options, ...)  //  Set an authentication cookie
+cookie.setAuthenticationCookie(configuration, ...)  //  Set an authentication cookie
 ```
 
-Note the use of the aforementioned `options` argument.
+Note the use of the aforementioned `configuration` argument.
 
 ### OAuth functionality
 
@@ -64,12 +64,12 @@ These functions will redirect the browser to the Xomi authentication site and ha
 ```
 const { oAuth } = require("@xomicloud/xomi");
 
-const options = require("../options");
+const configuration = require("../configuration");
 
 function signInHandler(request, response, next) {
   const createAccount = false;
 
-  oAuth.redirect(options, response, createAccount);
+  oAuth.redirect(configuration, response, createAccount);
 }
 ```
 
@@ -78,13 +78,13 @@ function signInHandler(request, response, next) {
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const options = require("../options");
+const configuration = require("../configuration");
 
 function callbackHandler(request, response, next) {
   const { query } = request,
         { code } = query;
 
-  oAuth.callback(options, code, (error, accessToken) => {
+  oAuth.callback(configuration, code, (error, accessToken) => {
     ///
   });
 }
@@ -104,19 +104,19 @@ These functions supply basic authentication cookie functionality. Full usage exa
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const options = require("../options");
+const configuration = require("../configuration");
 
 function callbackHandler(request, response, next) {
   const { query } = request,
         { code } = query;
 
-  oAuth.callback(options, code, (error, accessToken) => {
+  oAuth.callback(configuration, code, (error, accessToken) => {
     ///
 
     const { remember_me } = query,
           rememberMe = !!remember_me;
 
-    cookie.setAuthenticationCookie(options, response, accessToken, rememberMe);
+    cookie.setAuthenticationCookie(configuration, response, accessToken, rememberMe);
 
     ///
   });
@@ -128,12 +128,12 @@ function callbackHandler(request, response, next) {
 ```
 const { cookie, oAuth } = require("@xomicloud/xomi");
 
-const options = require("../options");
+const configuration = require("../configuration");
 
 function signOutHandler(request, response, next) {
-  cookie.removeAuthenticationCookie(options, response);
+  cookie.removeAuthenticationCookie(configuration, response);
 
-  oAuth.redirect(options, response);
+  oAuth.redirect(configuration, response);
 }
 ```
 
@@ -142,13 +142,13 @@ function signOutHandler(request, response, next) {
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const options = require("../../options");
+const configuration = require("../../configuration");
 
 function homePageHandler(request, response, next) {
-  const authenticationCookiePresent = cookie.isAuthenticationCookiePresent(options, request);
+  const authenticationCookiePresent = cookie.isAuthenticationCookiePresent(configuration, request);
 
   if (!authenticationCookiePresent) {
-    oAuth.redirect(options, response);
+    oAuth.redirect(configuration, response);
 
     return;
   }

@@ -73,7 +73,7 @@ function signInHandler(request, response, next) {
 }
 ```
 
-* The `callback()` function takes `configuration`, `code` and `callback` function argument. The `code` argument is the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` and an `accessToken` argument.
+* The `callback()` function takes `configuration`, `code` and `callback` function arguments. The `code` argument is the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` and an `accessToken` argument.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -97,9 +97,9 @@ function callbackHandler(request, response, next) {
 - `isAuthenticationCookiePresent()`
 - `getAccessTokenFromAuthenticationCookie()`
 
-These functions supply basic authentication cookie functionality. Full usage examples can be found in the JavaScript secure application, a link to which can be found in the related links section near the foot of this readme file.
+These functions supply basic authentication cookie functionality. Usage examples can again be found in the JavaScript secure application.
 
-* The `setAuthenticationCookie()` function takes an `configuration` argument, a `response` argument and an `accessToken` argument. The response is expected to be an instance of Node's ServerResponse class. It also takes an optional `rememberMe` argument which, if est to true, sets the expiry of the cookie well into the future.
+* The `setAuthenticationCookie()` function takes `configuration`, `response` and `accessToken` arguments. The response is expected to be an instance of Node's ServerResponse class. It also takes an optional `rememberMe` argument which, if set to true, sets the expiry of the cookie well into the future.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -123,7 +123,7 @@ function callbackHandler(request, response, next) {
 }
 ```
 
-* The `removeAuthenticationCookie()` function takes an `configuration` argument and a `response` argument.
+* The `removeAuthenticationCookie()` function takes `configuration` and `response` arguments.
 
 ```
 const { cookie, oAuth } = require("@xomicloud/xomi");
@@ -137,7 +137,7 @@ function signOutHandler(request, response, next) {
 }
 ```
 
-* The `isAuthenticationCookiePresent()` function takes an `configuration` argument and a `response` argument.
+* The `isAuthenticationCookiePresent()` function takes `configuration` and `response` arguments.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -157,7 +157,7 @@ function homePageHandler(request, response, next) {
 }
 ```
 
-* The `getAccessTokenFromAuthenticationCookie()` function similarly takes an `configuration` argument and a `response` argument.
+* The `getAccessTokenFromAuthenticationCookie()` function similarly takes `configuration` and `response` arguments. It returns an access token if the authentication cookie exists and can be parsed, `null` otherwise.
 
 ## Related links
 

@@ -1,6 +1,6 @@
 # Xomi
 
-OAuth and cookie functionality for Xomi.
+Secure functionality for Xomi.
 
 ## Installation
 

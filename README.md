@@ -73,7 +73,7 @@ function signInHandler(request, response, next) {
 }
 ```
 
-* The `callback()` function takes a `configuration`, `code` and `callback` function arguments. The `code` argument is expected to be the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` and an `accessToken` argument.
+* The `callback()` function takes `configuration`, `code` and `callback` function argument. The `code` argument is the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` and an `accessToken` argument.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");

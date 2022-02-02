@@ -73,9 +73,9 @@ function getAuthenticationCookieName(configuration) {
 
 function getParameters(configuration, rememberMe) {
   const parameters = {},
-        { domain } = configuration;
+        { domain = null } = configuration;
 
-  if (domain) {
+  if (domain !== null) {
     Object.assign(parameters, {
       domain
     });

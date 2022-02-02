@@ -16,11 +16,11 @@ const { POST_METHOD } = methods,
       { APPLICATION_JSON_CONTENT_TYPE, APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE } = contentTypes;
 
 function redirect(configuration, response, createAccount = false) {
-  const { clientHost = DEFAULT_CLIENT_HOST, clientId, redirectURI, clientURI = DEFAULT_CLIENT_URI, state = null, additionalParameters = null } = configuration,
+  const { clientId, clientURI = DEFAULT_CLIENT_URI, clientHost = DEFAULT_CLIENT_HOST, redirectURI, state = null, additionalParameters = null } = configuration,
         scope = OPEN_ID,  ///
         client_id = clientId,  ///
         redirect_uri = redirectURI,  ///
-        response_type = CODE, ///
+        response_type = CODE,
         query = {
           scope,
           client_id,
@@ -28,10 +28,14 @@ function redirect(configuration, response, createAccount = false) {
           response_type
         };
 
-  if (state) {
+  if (state !== null) {
     Object.assign(query, {
       state
     });
+  }
+
+  if (additionalParameters !== null) {
+    Object.assign(query, additionalParameters);
   }
 
   if (createAccount) {
@@ -40,10 +44,6 @@ function redirect(configuration, response, createAccount = false) {
     Object.assign(query, {
       create_account
     });
-  }
-
-  if (additionalParameters) {
-    Object.assign(query, additionalParameters);
   }
 
   const queryString = queryStringFromQuery(query),

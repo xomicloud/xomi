@@ -22,11 +22,11 @@ function html(response, html) {
 }
 
 function json(response, json) {
-  json = JSON.stringify(json);  ///
-
   response.setHeader(CONTENT_TYPE_HEADER, APPLICATION_JSON_CONTENT_TYPE);
 
   response.status(OK_200_STATUS_CODE);
+
+  json = JSON.stringify(json);  ///
 
   response.end(json);
 }

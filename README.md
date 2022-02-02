@@ -52,7 +52,7 @@ cookie.setAuthenticationCookie(configuration, ...)  //  Set an authentication co
 
 Note the use of the aforementioned `configuration` argument which is assumed to be returned as described above.
 
-### OAuth functionality
+### OAuth
 
 - `redirect()`
 - `callback()`
@@ -90,7 +90,7 @@ function callbackHandler(request, response, next) {
 }
 ```
 
-### Cookie functionality
+### Cookies
 
 - `setAuthenticationCookie()`
 - `removeAuthenticationCookie()`
@@ -159,10 +159,26 @@ function homePageHandler(request, response, next) {
 
 * The `getAccessTokenFromAuthenticationCookie()` function similarly takes `configuration` and `response` arguments. It returns an access token if the authentication cookie exists and can be parsed, `null` otherwise.
 
+### Integrations
+
+- `api()`
+
+There is only one function that connects to Xomi's API server. Only an outline of its usage is given here. More detailed information can be found in the integration tutorial, a link to which can be found in the related links section immediately below.
+
+* The `api` function takes `configuration`, `request` and `response` objects:
+ 
+```
+api(configuration, request, response);
+```
+
+The `request` and `response` objects do not have to be instances of Nodes IncomingMessage and ServerResponse classes and can be hand rolled. Again, see the tutorial for more details.
+
 ## Related links
 
 * [GitHub - JavaScript Secure Application](https://github.com/xomicloud/javascript-secure-application)
 * [Developers - JavaScript Lambda Tutorial](https://developers.xomi.cloud/tutorial/javascript-lambda)
+* [Developers - JavaScript localhost Tutorial](https://developers.xomi.cloud/tutorial/javascript-localhost)
+* [Developers - Google Drive Integrations Tutorial](https://developers.xomi.cloud/tutorial/google-drive-integration)
 * [Knowledge base - The Anatomy of a Secure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application)
 
 ## Contact

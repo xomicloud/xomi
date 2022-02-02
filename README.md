@@ -163,7 +163,7 @@ function homePageHandler(request, response, next) {
 
 - `api()`
 
-There is only one function that connects to Xomi's API server. Only an outline of its usage is given here. More detailed information can be found in the integration tutorial, a link to which can be found in the related links section immediately below.
+There is only one function that connects to Xomi's API server. Only an outline of its usage is given here. More detailed information can be found in the integration tutorial, a link to which is in the related links section immediately below.
 
 * The `api` function takes `configuration`, `request` and `response` objects:
  
@@ -171,7 +171,7 @@ There is only one function that connects to Xomi's API server. Only an outline o
 api(configuration, request, response);
 ```
 
-The `request` and `response` objects do not have to be instances of Nodes IncomingMessage and ServerResponse classes and can be hand rolled. Again, see the tutorial for more details.
+In this instance the `request` and `response` objects do not have to be instances of Node's IncomingMessage and ServerResponse classes and can be hand rolled. Again, see the tutorial for more details.
 
 ## Related links
 

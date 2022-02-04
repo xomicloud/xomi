@@ -2,8 +2,9 @@
 
 const { requestUtilities } = require("necessary");
 
-const { badGatewayError } = require("./http"),
-      { DEFAULT_API_HOST } = require("./defaults"),
+const httpResponse = require("./httpResponse");
+
+const { DEFAULT_API_HOST } = require("./defaults"),
       { setStatus, setHeaders } = require("./utilities/response"),
       { createBasicAuthorisation } = require("./utilities/authorisation"),
       { uriFromURL, isMethodPostMethod } = require("./utilities/request"),
@@ -32,7 +33,7 @@ function api(configuration, request, response, callback = null) {
 
   const remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
     if (error) {
-      badGatewayError(response, error);
+      httpResponse.badGatewayError(response, error);
 
       return;
     }

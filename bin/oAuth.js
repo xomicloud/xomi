@@ -3,9 +3,10 @@
 const { Readable } = require("stream"),
       { methods, headers, httpUtilities, contentTypes, requestUtilities } = require("necessary");
 
-const http = require("./http");
+const httpResponse = require("./httpResponse");
 
-const { createBasicAuthorisation } = require("./utilities/authorisation"),
+const { contentFromResponse } = require("./utilities/response"),
+      { createBasicAuthorisation } = require("./utilities/authorisation"),
       { OPEN_ID, CODE, AUTHORIZATION_CODE } = require("./constants"),
       { DEFAULT_CLIENT_URI, DEFAULT_CLIENT_HOST } = require("./defaults");
 
@@ -49,7 +50,7 @@ function redirect(configuration, response, createAccount = false) {
   const queryString = queryStringFromQuery(query),
         location = `${clientHost}${clientURI}?${queryString}`;
 
-  http.redirect(response, location);
+  httpResponse.redirect(response, location);
 }
 
 function callback(configuration, code, callback) {
@@ -72,7 +73,7 @@ function callback(configuration, code, callback) {
             return;
           }
 
-          http.contentFromResponse(remoteResponse, (content) => {
+          contentFromResponse(remoteResponse, (content) => {
             let json;
 
             const jsonString = content;  ///
@@ -114,7 +115,6 @@ function createHeaders(configuration, content) {
         };
 
   headers[CONTENT_TYPE_HEADER] = contentType;
-
   headers[CONTENT_LENGTH_HEADER] = contentLength;
 
   return headers;

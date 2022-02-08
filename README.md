@@ -84,7 +84,7 @@ function callbackHandler(request, response, next) {
   const { query } = request,
         { code } = query;
 
-  oAuth.callback(configuration, code, (error, accessToken) => {
+  oAuth.callback(configuration, code, (error, accessToken, refreshToken, identityToken) => {
     ///
   });
 }

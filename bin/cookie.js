@@ -2,11 +2,13 @@
 
 const { AUTHENTICATION, AUTHENTICATION_COOKIE_EXPIRES } = require("./constants");
 
-function setAuthenticationCookie(configuration, response, accessToken, rememberMe = false) {
+function setAuthenticationCookie(configuration, response, accessToken, identityToken, rememberMe = false) {
   const authenticationCookieName = getAuthenticationCookieName(configuration),
         access_token = accessToken, ///
+        identity_token = identityToken, ///
         json = {
-          access_token
+          access_token,
+          identity_token
         },
         name = authenticationCookieName,  ///
         value = JSON.stringify(json),
@@ -57,11 +59,36 @@ function getAccessTokenFromAuthenticationCookie(configuration, request) {
   return accessToken;
 }
 
+function getIdentityTokenFromAuthenticationCookie(configuration, request) {
+  let identityToken = null;
+
+  const authenticationCookiePresent = isAuthenticationCookiePresent(configuration, request);
+
+  if (authenticationCookiePresent) {
+    const { cookies } = request,
+          authenticationCookieNAme = getAuthenticationCookieName(configuration),
+          name = authenticationCookieNAme,  ///
+          value = cookies[name];
+
+    try {
+      const json = JSON.parse(value),
+          { identity_token } = json;
+
+      identityToken = identity_token; ///
+    } catch (error) {
+      identityToken = value;  ///
+    }
+  }
+
+  return identityToken;
+}
+
 module.exports = {
   setAuthenticationCookie,
   removeAuthenticationCookie,
   isAuthenticationCookiePresent,
-  getAccessTokenFromAuthenticationCookie
+  getAccessTokenFromAuthenticationCookie,
+  getIdentityTokenFromAuthenticationCookie
 };
 
 function getAuthenticationCookieName(configuration) {

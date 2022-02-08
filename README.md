@@ -96,10 +96,11 @@ function callbackHandler(request, response, next) {
 - `removeAuthenticationCookie()`
 - `isAuthenticationCookiePresent()`
 - `getAccessTokenFromAuthenticationCookie()`
+- `getIdentityTokenFromAuthenticationCookie()`
 
 These functions supply basic authentication cookie functionality. Usage examples can again be found in the JavaScript secure application.
 
-* The `setAuthenticationCookie()` function takes `configuration`, `response` and `accessToken` arguments. The response is expected to be an instance of Node's ServerResponse class. It also takes an optional `rememberMe` argument which, if set to true, sets the expiry of the cookie well into the future.
+* The `setAuthenticationCookie()` function takes `configuration`, `response`, `accessToken` and `identityToken` arguments. The response is expected to be an instance of Node's ServerResponse class. It also takes an optional `rememberMe` argument which, if set to true, sets the expiry of the cookie well into the future.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -110,18 +111,20 @@ function callbackHandler(request, response, next) {
   const { query } = request,
         { code } = query;
 
-  oAuth.callback(configuration, code, (error, accessToken) => {
+  oAuth.callback(configuration, code, (error, accessToken, refreshToken, identityToken) => {
     ///
 
     const { remember_me } = query,
           rememberMe = !!remember_me;
 
-    cookie.setAuthenticationCookie(configuration, response, accessToken, rememberMe);
+    cookie.setAuthenticationCookie(configuration, response, accessToken, identityToken, rememberMe);
 
     ///
   });
 }
 ```
+
+Note that the refresh token returned from the `oAuth.callback()` function, which will likely be null, is not saved in the authentication cookie.
 
 * The `removeAuthenticationCookie()` function takes `configuration` and `response` arguments.
 
@@ -158,6 +161,8 @@ function homePageHandler(request, response, next) {
 ```
 
 * The `getAccessTokenFromAuthenticationCookie()` function similarly takes `configuration` and `response` arguments. It returns an access token if the authentication cookie exists and can be parsed, `null` otherwise.
+
+* The `getIdentityTokenFromAuthenticationCookie()` function similarly takes `configuration` and `response` arguments. It returns an identity token if the authentication cookie exists and can be parsed, `null` otherwise.
 
 ### Integrations
 

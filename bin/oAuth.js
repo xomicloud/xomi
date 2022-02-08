@@ -65,33 +65,30 @@ function callback(configuration, code, callback) {
         request = readable, ///
         remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
           let accessToken = null,
-              refreshToken = null;
+              refreshToken = null,
+              identityToken = null;
 
           if (error) {
-            callback(error, accessToken, refreshToken);
+            callback(error, accessToken, refreshToken, identityToken);
 
             return;
           }
 
           contentFromResponse(remoteResponse, (content) => {
-            let json;
-
             const jsonString = content;  ///
 
             try {
-              json = JSON.parse(jsonString);
-            } catch (error) {
-              callback(error, accessToken, refreshToken);
+              const json = JSON.parse(jsonString),
+                    { access_token = null, refresh_token = null, identity_token = null } = json;
 
-              return;
+              accessToken = access_token; ///
+              refreshToken = refresh_token; ///
+              identityToken = identity_token; ///
+            } catch (error) {
+              ///
             }
 
-            const { access_token = null, refresh_token = null } = json;
-
-            accessToken = access_token; ///
-            refreshToken = refresh_token; ///
-
-            callback(error, accessToken, refreshToken);
+            callback(error, accessToken, refreshToken, identityToken);
           });
         });
 

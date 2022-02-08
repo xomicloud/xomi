@@ -100,7 +100,7 @@ function callbackHandler(request, response, next) {
 
 These functions supply basic authentication cookie functionality. Usage examples can again be found in the JavaScript secure application.
 
-* The `setAuthenticationCookie()` function takes `configuration`, `response`, `accessToken` and `identityToken` arguments. The response is expected to be an instance of Node's ServerResponse class. It also takes an optional `rememberMe` argument which, if set to true, sets the expiry of the cookie well into the future.
+* The `setAuthenticationCookie()` function takes `configuration`, `response`, `accessToken` and `identityToken` arguments. It also takes an optional `rememberMe` argument which, if set to true, sets the expiry of the cookie well into the future. The response is expected to be an instance of Node's ServerResponse class.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -160,7 +160,7 @@ function homePageHandler(request, response, next) {
 }
 ```
 
-* The `getAccessTokenFromAuthenticationCookie()` function similarly takes `configuration` and `response` arguments. It returns an access token if the authentication cookie exists and can be parsed, `null` otherwise.
+* The `getAccessTokenFromAuthenticationCookie()` function takes `configuration` and `response` arguments. It returns an access token if the authentication cookie exists and can be parsed, `null` otherwise.
 
 * The `getIdentityTokenFromAuthenticationCookie()` function similarly takes `configuration` and `response` arguments. It returns an identity token if the authentication cookie exists and can be parsed, `null` otherwise.
 

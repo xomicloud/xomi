@@ -12,7 +12,7 @@ const { DEFAULT_API_HOST } = require("./defaults"),
 
 const { createRequest: createRemoteRequest } = requestUtilities;
 
-function api(configuration, request, response, callback = null) {
+function api(configuration, request, response) {
   const { url, query, method } = request,
         { apiHost = DEFAULT_API_HOST } = configuration,
         basicAuthorisation = createBasicAuthorisation(configuration),
@@ -41,10 +41,6 @@ function api(configuration, request, response, callback = null) {
     setStatus(remoteResponse, response);
 
     setHeaders(remoteResponse, response);
-
-    if (callback !== null) {
-      callback();
-    }
 
     remoteResponse.pipe(response);
   });

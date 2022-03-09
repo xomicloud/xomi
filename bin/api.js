@@ -4,32 +4,24 @@ const { requestUtilities } = require("necessary");
 
 const httpResponse = require("./httpResponse");
 
-const { DEFAULT_API_HOST } = require("./defaults"),
+const { uriFromURL } = require("./utilities/request"),
+      { DEFAULT_API_HOST } = require("./defaults"),
       { setStatus, setHeaders } = require("./utilities/response"),
-      { createBasicAuthorisation } = require("./utilities/authorisation"),
-      { uriFromURL, isMethodPostMethod } = require("./utilities/request"),
-      { createContentHeaders, createAcceptHeaders } = require("./utilities/header");
+      { createBasicAuthorisation } = require("./utilities/authorisation");
 
 const { createRequest: createRemoteRequest } = requestUtilities;
 
 function api(configuration, request, response) {
-  const { url, query, method } = request,
+  const { url, query, method, headers } = request,
         { apiHost = DEFAULT_API_HOST } = configuration,
         basicAuthorisation = createBasicAuthorisation(configuration),
-        uri = uriFromURL(url),
-        host = apiHost,  ///
         authorization = basicAuthorisation,  ///
-        headers = {
-          authorization
-        },
-        methodPostMethod = isMethodPostMethod(method);
+        uri = uriFromURL(url),
+        host = apiHost;  ///
 
-  if (methodPostMethod) {
-    const acceptHeaders = createAcceptHeaders(request),
-          contentHeaders = createContentHeaders(request);
-
-    Object.assign(headers, acceptHeaders, contentHeaders);
-  }
+  Object.assign(headers, {
+    authorization
+  });
 
   const remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
     if (error) {

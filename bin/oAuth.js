@@ -64,22 +64,24 @@ function callback(configuration, code, callback) {
         headers = createHeaders(configuration, content),
         request = readable, ///
         remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
-          let accessToken = null,
+          let json = null,
+              accessToken = null,
               refreshToken = null,
               identityToken = null;
 
           if (error) {
-            callback(error, accessToken, refreshToken, identityToken);
+            callback(error, accessToken, refreshToken, identityToken, json);
 
             return;
           }
 
           contentFromResponse(remoteResponse, (content) => {
-            const jsonString = content;  ///
-
             try {
-              const json = JSON.parse(jsonString),
-                    { access_token = null, refresh_token = null, identity_token = null } = json;
+              const jsonString = content;  ///
+
+              json = JSON.parse(jsonString);
+
+              const { access_token = null, refresh_token = null, identity_token = null } = json;
 
               accessToken = access_token; ///
               refreshToken = refresh_token; ///
@@ -88,7 +90,7 @@ function callback(configuration, code, callback) {
               ///
             }
 
-            callback(error, accessToken, refreshToken, identityToken);
+            callback(error, accessToken, refreshToken, identityToken, json);
           });
         });
 

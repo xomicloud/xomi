@@ -10,8 +10,8 @@ const { AUTHORIZATION } = require("./constants"),
       { createBasicAuthorisation } = require("./utilities/authorisation");
 
 const { GET_METHOD } = methods,
-      { createRequest: createRemoteRequest } = requestUtilities,
-      { OK_200_STATUS_CODE, BAD_GATEWAY_502_STATUS_CODE } = statusCodes;
+      { OK_200_STATUS_CODE } = statusCodes,
+      { createRequest: createRemoteRequest } = requestUtilities;
 
 function account(configuration, identityToken, callback) {
   const { accountHost = DEFAULT_ACCOUNT_HOST } = configuration,
@@ -27,10 +27,9 @@ function account(configuration, identityToken, callback) {
 
   const remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
     if (error) {
-      const account = null,
-            statusCode = BAD_GATEWAY_502_STATUS_CODE;
+      const account = null;
 
-      callback(statusCode, account);
+      callback(error, account);
 
       return;
     }
@@ -38,15 +37,16 @@ function account(configuration, identityToken, callback) {
     const { statusCode } = remoteResponse;
 
     if (statusCode !== OK_200_STATUS_CODE) {
-      const account = null;
+      const error = true,
+            account = null;
 
-      callback(statusCode, account);
+      callback(error, account);
 
       return;
     }
 
     accountFromRemoteResponse(remoteResponse, (account) => {
-      callback(statusCode, account);
+      callback(error, account);
     });
   });
 

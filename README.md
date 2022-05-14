@@ -178,6 +178,30 @@ api(configuration, request, response);
 
 In this instance the `request` and `response` objects do not have to be instances of Node's IncomingMessage and ServerResponse classes and can be hand rolled. Again, see the tutorial for more details.
 
+### Accounts
+
+- `account()`
+
+Again there is only one function. It connects to Xomi's account server. 
+
+* The `account` function takes `configuration`, `identityToken` and `callback` objects:
+
+```
+api(configuration, identityToken, (error, account) => {
+  if (error) {
+    ///
+    
+    return;
+  }
+  
+  const { usernmae, email_address } = account;
+  
+  ///
+}));
+```
+
+The function will invoke the callback function you provide with an error code and, provided you are authorized to retrieve that user's details, a plain old JavaScript object with the user's account details. Presently this is their email address and username.
+
 ## Related links
 
 * [GitHub - JavaScript Secure Application](https://github.com/xomicloud/javascript-secure-application)

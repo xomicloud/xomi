@@ -5,10 +5,11 @@ const { Readable } = require("stream"),
 
 const httpResponse = require("./httpResponse");
 
-const { contentFromResponse } = require("./utilities/response"),
+const { DEFAULT_CLIENT_URI } = require("./uris"),
+      { DEFAULT_CLIENT_HOST } = require("./hosts"),
+      { contentFromResponse } = require("./utilities/response"),
       { createBasicAuthorisation } = require("./utilities/authorisation"),
-      { OPEN_ID, CODE, AUTHORIZATION_CODE } = require("./constants"),
-      { DEFAULT_CLIENT_URI, DEFAULT_CLIENT_HOST } = require("./defaults");
+      { OPEN_ID, CODE, AUTHORIZATION_CODE } = require("./constants");
 
 const { POST_METHOD } = methods,
       { queryStringFromQuery } = httpUtilities,

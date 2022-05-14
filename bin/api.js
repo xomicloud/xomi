@@ -4,7 +4,8 @@ const { requestUtilities } = require("necessary");
 
 const httpResponse = require("./httpResponse");
 
-const { DEFAULT_API_HOST } = require("./defaults"),
+const { AUTHORIZATION } = require("./constants"),
+      { DEFAULT_API_HOST } = require("./hosts"),
       { setStatus, setHeaders } = require("./utilities/response"),
       { createBasicAuthorisation } = require("./utilities/authorisation");
 
@@ -17,9 +18,7 @@ function api(configuration, request, response) {
         authorization = basicAuthorisation,  ///
         host = apiHost;  ///
 
-  Object.assign(headers, {
-    authorization
-  });
+  headers[AUTHORIZATION] = authorization;
 
   const remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
     if (error) {

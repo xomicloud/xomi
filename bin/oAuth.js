@@ -8,7 +8,7 @@ const httpResponse = require("./httpResponse");
 const { DEFAULT_CLIENT_URI } = require("./uris"),
       { DEFAULT_CLIENT_HOST } = require("./hosts"),
       { contentFromResponse } = require("./utilities/response"),
-      { createBasicAuthorisation } = require("./utilities/authorisation"),
+      { createBasicAuthorization } = require("./utilities/authorization"),
       { OPEN_ID, CODE, AUTHORIZATION_CODE } = require("./constants");
 
 const { POST_METHOD } = methods,
@@ -107,8 +107,8 @@ function createHeaders(configuration, content) {
   const accept = APPLICATION_JSON_CONTENT_TYPE,
         contentType = APPLICATION_X_WWW_FORM_ENCODED_CONTENT_TYPE,
         contentLength = content.length,
-        basicAuthorisation = createBasicAuthorisation(configuration),
-        authorization = basicAuthorisation, ///
+        basicAuthorization = createBasicAuthorization(configuration),
+        authorization = basicAuthorization, ///
         headers = {
           accept,
           authorization

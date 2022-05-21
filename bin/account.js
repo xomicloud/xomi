@@ -7,7 +7,7 @@ const { AUTHORIZATION } = require("./constants"),
       { contentFromResponse } = require("./utilities/response"),
       { DEFAULT_ACCOUNT_HOST } = require("./hosts"),
       { IDENTITY_TOKEN_PARAMETER } = require("./parameters"),
-      { createBasicAuthorisation } = require("./utilities/authorisation");
+      { createBasicAuthorization } = require("./utilities/authorization");
 
 const { GET_METHOD } = methods,
       { OK_200_STATUS_CODE } = statusCodes,
@@ -15,8 +15,8 @@ const { GET_METHOD } = methods,
 
 function account(configuration, identityToken, callback) {
   const { accountHost = DEFAULT_ACCOUNT_HOST } = configuration,
-        basicAuthorisation = createBasicAuthorisation(configuration),
-        authorization = basicAuthorisation,  ///
+        basicAuthorization = createBasicAuthorization(configuration),
+        authorization = basicAuthorization,  ///
         uri = ACCOUNT_API_URI.replace(IDENTITY_TOKEN_PARAMETER, identityToken),
         host = accountHost,  ///
         query = {},

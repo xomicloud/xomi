@@ -4,15 +4,15 @@ const { encodings } = require("necessary");
 
 const { BASE64_ENCODING } = encodings;
 
-function createBasicAuthorisation(configuration) {
+function createBasicAuthorization(configuration) {
   const { clientId, clientSecret } = configuration,
         digest = `${clientId}:${clientSecret}`,
         encodedDigest = Buffer.from(digest).toString(BASE64_ENCODING),
-        basicAuthorisation = `Basic ${encodedDigest}`;
+        basicAuthorization = `Basic ${encodedDigest}`;
 
-  return basicAuthorisation;
+  return basicAuthorization;
 }
 
 module.exports = {
-  createBasicAuthorisation
+  createBasicAuthorization
 };

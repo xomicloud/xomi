@@ -10,8 +10,8 @@ const { AUTHORIZATION } = require("./constants"),
       { createBasicAuthorization } = require("./utilities/authorization");
 
 const { GET_METHOD } = methods,
-      { OK_200_STATUS_CODE } = statusCodes,
-      { createRequest: createRemoteRequest } = requestUtilities;
+      { createRequest: createRemoteRequest } = requestUtilities,
+      { OK_200_STATUS_CODE, UNAUTHORIZED_401_STATUS_CODE } = statusCodes;
 
 function account(configuration, identityToken, callback) {
   const { accountHost = DEFAULT_ACCOUNT_HOST } = configuration,
@@ -36,18 +36,32 @@ function account(configuration, identityToken, callback) {
 
     const { statusCode } = remoteResponse;
 
-    if (statusCode !== OK_200_STATUS_CODE) {
-      const error = true,
-            account = null;
+    switch (statusCode) {
+      case OK_200_STATUS_CODE: {
+        accountFromRemoteResponse(remoteResponse, (account) => {
+          callback(error, account);
+        });
 
-      callback(error, account);
+        break;
+      }
 
-      return;
+      case UNAUTHORIZED_401_STATUS_CODE: {
+        const error = false,
+              account = null;
+
+        callback(error, account);
+
+        break;
+      }
+
+      default: {
+        const account = null;
+
+        callback(error, account);
+
+        break;
+      }
     }
-
-    accountFromRemoteResponse(remoteResponse, (account) => {
-      callback(error, account);
-    });
   });
 
   remoteRequest.end();

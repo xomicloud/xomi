@@ -29,6 +29,8 @@ function account(configuration, identityToken, callback) {
     if (error) {
       const account = null;
 
+      error = true;
+
       callback(error, account);
 
       return;
@@ -39,6 +41,8 @@ function account(configuration, identityToken, callback) {
     switch (statusCode) {
       case OK_200_STATUS_CODE: {
         accountFromRemoteResponse(remoteResponse, (account) => {
+          error = false;
+
           callback(error, account);
         });
 
@@ -46,8 +50,9 @@ function account(configuration, identityToken, callback) {
       }
 
       case UNAUTHORIZED_401_STATUS_CODE: {
-        const error = false,
-              account = null;
+        const account = null;
+
+        error = false;
 
         callback(error, account);
 
@@ -56,6 +61,8 @@ function account(configuration, identityToken, callback) {
 
       default: {
         const account = null;
+
+        error = true;
 
         callback(error, account);
 

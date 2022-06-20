@@ -1,15 +1,15 @@
 "use strict";
 
-const { methods, statusCodes, requestUtilities } = require("necessary");
+const { methods, headers, statusCodes, requestUtilities } = require("necessary");
 
-const { AUTHORIZATION } = require("./constants"),
-      { ACCOUNT_API_URI } = require("./uris"),
+const { ACCOUNT_API_URI } = require("./uris"),
       { contentFromResponse } = require("./utilities/response"),
       { DEFAULT_ACCOUNT_HOST } = require("./hosts"),
       { IDENTITY_TOKEN_PARAMETER } = require("./parameters"),
       { createBasicAuthorization } = require("./utilities/authorization");
 
 const { GET_METHOD } = methods,
+      { AUTHORIZATION_HEADER } = headers,
       { createRequest: createRemoteRequest } = requestUtilities,
       { OK_200_STATUS_CODE, UNAUTHORIZED_401_STATUS_CODE } = statusCodes;
 
@@ -23,7 +23,7 @@ function account(configuration, identityToken, callback) {
         method = GET_METHOD,
         headers = {};
 
-  headers[AUTHORIZATION] = authorization;
+  headers[AUTHORIZATION_HEADER] = authorization;
 
   const remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
     if (error) {

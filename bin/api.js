@@ -1,15 +1,15 @@
 "use strict";
 
-const { requestUtilities } = require("necessary");
+const { headers, requestUtilities } = require("necessary");
 
 const httpResponse = require("./httpResponse");
 
-const { AUTHORIZATION } = require("./constants"),
-      { DEFAULT_API_HOST } = require("./hosts"),
+const { DEFAULT_API_HOST } = require("./hosts"),
       { setStatus, setHeaders } = require("./utilities/response"),
       { createBasicAuthorization } = require("./utilities/authorization");
 
-const { createRequest: createRemoteRequest } = requestUtilities;
+const { AUTHORIZATION_HEADER } = headers,
+      { createRequest: createRemoteRequest } = requestUtilities;
 
 function api(configuration, request, response) {
   const { apiHost = DEFAULT_API_HOST } = configuration,
@@ -18,7 +18,7 @@ function api(configuration, request, response) {
         authorization = basicAuthorization,  ///
         host = apiHost;  ///
 
-  headers[AUTHORIZATION] = authorization;
+  headers[AUTHORIZATION_HEADER] = authorization;
 
   const remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
     if (error) {

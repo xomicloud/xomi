@@ -10,7 +10,7 @@
     "url": "https://github.com/xomicloud/xomi"
   },
   "dependencies": {
-    "necessary": "^11.0.48"
+    "necessary": "^11.1.3"
   },
   "devDependencies": {},
   "scripts": {}

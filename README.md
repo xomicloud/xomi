@@ -257,7 +257,7 @@ authenticate.resetPassword(configuration, emailAddress, (error) => {
 }));
 ```
 
-If the email address corresponds to an user'a account then an email will be sent. The function additionally will invoke the callback function you provide with an error code but does not indicate whether or not an email was send for security reasons.
+If the email address corresponds to an user'a account then an email will be sent. The function additionally will invoke the callback function you provide with an error code but does not indicate whether or not an email was sent for security reasons.
 
 ### Account information
 

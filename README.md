@@ -279,7 +279,7 @@ account(configuration, identityToken, (error, account) => {
     return;
   }
   
-  const { usernmae, email_address } = account;
+  const { username, email_address } = account;
   
   ///
 }));

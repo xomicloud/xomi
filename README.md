@@ -179,7 +179,7 @@ function homePageHandler(request, response, next) {
 
 - `api()`
 
-There is only one function that connects to Xomi's API server. Only an outline of its usage is given here. More detailed information can be found in the integration tutorial, a link to which is in the related links section immediately below.
+There is only one function that connects to Xomi's API server. Only an outline of its usage is given here. More detailed information can be found in the [Dropbox integration tutorial](https://developers.xomi.cloud/tutorial/dropbox-integration).
 
 * The `api` function takes `configuration`, `request` and `response` objects:
  
@@ -242,8 +242,8 @@ The function will invoke the callback function you provide with an error code an
 * [GitHub - JavaScript Integrations](https://github.com/xomicloud/javascript-integrations)
 * [GitHub - JavaScript Secure Application](https://github.com/xomicloud/javascript-secure-application)
 * [Developers - JavaScript Lambda Tutorial](https://developers.xomi.cloud/tutorial/javascript-lambda)
+* [Developers - Dropbox Integration Tutorial](https://developers.xomi.cloud/tutorial/dropbox-integration)
 * [Developers - JavaScript localhost Tutorial](https://developers.xomi.cloud/tutorial/javascript-localhost)
-* [Developers - Google Drive Integrations Tutorial](https://developers.xomi.cloud/tutorial/google-drive-integration)
 * [Knowledge base - The Anatomy of a Secure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application)
 
 ## Contact

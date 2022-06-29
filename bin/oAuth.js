@@ -63,7 +63,6 @@ function callback(configuration, code, callback) {
         query = {},
         method = POST_METHOD,  ///
         headers = createHeaders(configuration, content),
-        request = readable, ///
         remoteRequest = createRemoteRequest(host, uri, query, method, headers, (error, remoteResponse) => {
           let json = null,
               accessToken = null,
@@ -95,7 +94,7 @@ function callback(configuration, code, callback) {
           });
         });
 
-  request.pipe(remoteRequest);
+  readable.pipe(remoteRequest);
 }
 
 module.exports = {
@@ -115,6 +114,7 @@ function createHeaders(configuration, content) {
         };
 
   headers[CONTENT_TYPE_HEADER] = contentType;
+
   headers[CONTENT_LENGTH_HEADER] = contentLength;
 
   return headers;

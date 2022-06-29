@@ -8,7 +8,7 @@ Secure functionality for Xomi. This is divided up as follows:
 - [Authentication (authenticate)](#authentication)
 - [Account information (account)](#account_information)
 
-This readme file contains installation and usage instructions as well as specifications of all of the functionality involved. The tutorials and knowledge base articles referenced throughout may provide a friendlier introduction to this package, however, and they are collected in the related links section near the end. 
+This readme file contains installation instructions and usage examples. The tutorials and knowledge base articles referenced throughout may provide a friendlier introduction, however, and they are collected in the related links section near the end.
 
 ## Installation
 
@@ -33,32 +33,35 @@ All of the functions take a plain old JavaScript object as their first `configur
 ```
 "use strict";
 
-const { CLIENT_HOST, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = process.env,
+const { CLIENT_HOST, CLIENT_ID, REDIRECT_URI, CLIENT_SECRET } = process.env,
       clientId = CLIENT_ID, ///
       clientHost = CLIENT_HOST, ///
+      redirectURI = REDIRECT_URI, ///
       clientSecret = CLIENT_SECRET, ///
-      redirectURI = REDIRECT_URI; ///
+      configuration = {
+        clientId,
+        clientHost,
+        redirectURI,
+        clientSecret
+      }; 
 
-module.exports = {
-  clientId,
-  clientHost,
-  clientSecret,
-  redirectURI
-};
+module.exports = configuration;
 ```
 You invoke the functions as follows:
 
 ```
-const { oAuth, cookie } = require("@xomicloud/xomi");
+const { oAuth, cookie, account } = require("@xomicloud/xomi");
 
 const configuration = require("../configuration");
+
+account(configuration, ...) // Retrieve account ifformation
 
 oAuth.callback(configuration, ...); //  Make an OAuth callback
 
 cookie.setAuthenticationCookie(configuration, ...)  //  Set an authentication cookie
 ```
 
-Note the use of the aforementioned `configuration` argument which is assumed to be returned as described above.
+Some package exports, such as `aacount`, are single functions. Others, such as `oAuth` and `cookie`, are collections of functions.  Note the use of the aforementioned `configuration` argument which is assumed to be defined as above.
 
 ### OAuth
 

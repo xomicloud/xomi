@@ -61,7 +61,7 @@ oAuth.callback(configuration, ...); //  Make an OAuth callback
 cookie.setAuthenticationCookie(configuration, ...)  //  Set an authentication cookie
 ```
 
-Some package exports, such as `aacount`, are single functions. Others, such as `oAuth` and `cookie`, are collections of functions.  Note the use of the aforementioned `configuration` argument which is assumed to be defined as above.
+Some package exports, such as `aacount`, are single functions. Others, such as `oAuth`, are collections of functions.  Note the use of the aforementioned `configuration` argument which is assumed to be defined as above.
 
 ### OAuth
 

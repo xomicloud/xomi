@@ -263,7 +263,7 @@ If the email address corresponds to an user'a account then an email will be sent
 
 - `account()`
 
-Again there is only one function. It provides a user's details in exchange for their identity token.
+Again there is only one function. It provides user information in exchange for their identity token.
 
 * The `account()` function takes `configuration`, `identityToken` and `callback` arguments:
 
@@ -285,7 +285,7 @@ account(configuration, identityToken, (error, account) => {
 }));
 ```
 
-The function will invoke the callback function you provide with an error code and, provided you are authorized to retrieve that user's details, a plain old JavaScript object with the user's account details. Presently this is their email address and username.
+The function will invoke the callback function you provide with an error code and, provided you are authorized, a plain old JavaScript object with the user's email address and username.
 
 ## Related links
 

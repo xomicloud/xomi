@@ -8,6 +8,8 @@ Secure functionality for Xomi. This is divided up as follows:
 - [Authentication (authenticate)](#authentication)
 - [Account information (account)](#account_information)
 
+This readme file contains installation and usage instructions as well as specifications of all of the functionality involved. The tutorials and knowledge base articles referenced throughout may provide a friendlier introduction to this package, however, and they are collected in the related links section near the end. 
+
 ## Installation
 
 You can install Xomi with [npm](https://www.npmjs.com/):
@@ -234,6 +236,7 @@ The function will invoke the callback function you provide with an error code an
 
 ## Related links
 
+* [GitHub - JavaScript Integrations](https://github.com/xomicloud/javascript-integrations)
 * [GitHub - JavaScript Secure Application](https://github.com/xomicloud/javascript-secure-application)
 * [Developers - JavaScript Lambda Tutorial](https://developers.xomi.cloud/tutorial/javascript-lambda)
 * [Developers - JavaScript localhost Tutorial](https://developers.xomi.cloud/tutorial/javascript-localhost)

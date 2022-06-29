@@ -193,7 +193,7 @@ In this instance the `request` and `response` objects do not have to be instance
 
 - `account()`
 
-Again there is only one function. It connects to Xomi's account server. 
+Again there is only one function. It connects to Xomi's account server in order to provide a user's details, specifically their username and email address.
 
 * The `account` function takes `configuration`, `identityToken` and `callback` objects:
 

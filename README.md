@@ -52,7 +52,7 @@ You invoke the functions as follows:
 ```
 const { oAuth, cookie, account } = require("@xomicloud/xomi");
 
-const configuration = require("../configuration");
+const configuration = require("./configuration");
 
 account(configuration, ...) // Retrieve account ifformation
 
@@ -75,7 +75,7 @@ These functions will redirect the browser to the Xomi authentication site and ha
 ```
 const { oAuth } = require("@xomicloud/xomi");
 
-const configuration = require("../configuration");
+const configuration = require("./configuration");
 
 function signInHandler(request, response, next) {
   const createAccount = false;
@@ -89,7 +89,7 @@ function signInHandler(request, response, next) {
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const configuration = require("../configuration");
+const configuration = require("./configuration");
 
 function callbackHandler(request, response, next) {
   const { query } = request,
@@ -116,7 +116,7 @@ These functions supply basic authentication cookie functionality. Usage examples
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const configuration = require("../configuration");
+const configuration = require("./configuration");
 
 function callbackHandler(request, response, next) {
   const { query } = request,
@@ -142,7 +142,7 @@ Note that the refresh token returned from the `oAuth.callback()` function, which
 ```
 const { cookie, oAuth } = require("@xomicloud/xomi");
 
-const configuration = require("../configuration");
+const configuration = require("./configuration");
 
 function signOutHandler(request, response, next) {
   cookie.removeAuthenticationCookie(configuration, response);
@@ -156,7 +156,7 @@ function signOutHandler(request, response, next) {
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
 
-const configuration = require("../../configuration");
+const configuration = require("./configuration");
 
 function homePageHandler(request, response, next) {
   const authenticationCookiePresent = cookie.isAuthenticationCookiePresent(configuration, request);
@@ -202,7 +202,11 @@ There are three functions relating to managing accounts. Together they provide a
 * The `signIn` function takes `configuration`, `emailAddressOrUsername`, `password` and `callback` arguments:
 
 ```
-signIn(configuration, emailAddressOrUsername, password, (error, accessToken, identityToken) => {
+const { authenticate } = require("@xomicloud/xomi");
+
+const configuration = require("./configuration");
+
+authenticate.signIn(configuration, emailAddressOrUsername, password, (error, accessToken, identityToken) => {
   if (error) {
     ///
     
@@ -218,7 +222,11 @@ The function will invoke the callback function you provide with an error code an
 * The `createAccount` function takes `configuration`, `emailAddress`, `username`, `password` and `callback` arguments. The `username` argument can be `null` if usernames are not needed: 
 
 ```
-createAccount(configuration, emailAddress, username, password, (error, accessToken, identityToken) => {
+const { authenticate } = require("@xomicloud/xomi");
+
+const configuration = require("./configuration");
+
+authenticate.createAccount(configuration, emailAddress, username, password, (error, accessToken, identityToken) => {
   if (error) {
     ///
     
@@ -234,7 +242,11 @@ The function will invoke the callback function you provide with an error code an
 * The `restePassword` function takes `configuration`, `emailAddress` and `callback` arguments:
 
 ```
-resetPassword(configuration, emailAddress, (error) => {
+const { authenticate } = require("@xomicloud/xomi");
+
+const configuration = require("./configuration");
+
+authenticate.resetPassword(configuration, emailAddress, (error) => {
   if (error) {
     ///
     
@@ -251,12 +263,14 @@ If the email address corresponds to an user'a account then an email will be sent
 
 - `account()`
 
-Again there is only one function. It provides a user's details in return for their identity token.
+Again there is only one function. It provides a user's details in exchange for their identity token.
 
 * The `account` function takes `configuration`, `identityToken` and `callback` arguments:
 
 ```
 const { account } = require("@xomicloud/xomi");
+
+const configuration = require("./configuration");
 
 account(configuration, identityToken, (error, account) => {
   if (error) {

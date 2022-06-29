@@ -294,7 +294,7 @@ The function will invoke the callback function you provide with an error code an
 * [Developers - JavaScript Lambda Tutorial](https://developers.xomi.cloud/tutorial/javascript-lambda)
 * [Developers - Dropbox Integration Tutorial](https://developers.xomi.cloud/tutorial/dropbox-integration)
 * [Developers - JavaScript localhost Tutorial](https://developers.xomi.cloud/tutorial/javascript-localhost)
-* [Knowledge base - The Anatomy of a Secure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application)
+* [Developers - The Anatomy of a Secure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application)
 
 ## Contact
 

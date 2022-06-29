@@ -68,7 +68,7 @@ Some package exports, such as `aacount`, are single functions. Others, such as `
 - `redirect()`
 - `callback()`
 
-These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback, respectively. Usage examples can be found in the [JavaScript secure application](https://github.com/xomicloud/javascript-secure-application) and further information can be found in the knowledge base article called [The Anatomy of a SSecure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application).
+These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback, respectively. Usage examples can be found in the [JavaScript secure application](https://github.com/xomicloud/javascript-secure-application) repository and further information can be found in [The Anatomy of a Secure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application) knowledge base article.
 
 * The `redirect()` function takes `configuration` and `response` arguments. The response is expected to be an instance of Node's [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) class. You can also pass a third, optional `createAccount` argument that, if set to true, instructs the authentication site to show the form to create an account rather than the sign up form.
 
@@ -109,7 +109,7 @@ function callbackHandler(request, response, next) {
 - `getAccessTokenFromAuthenticationCookie()`
 - `getIdentityTokenFromAuthenticationCookie()`
 
-These functions supply basic authentication cookie functionality. Usage examples can again be found in the JavaScript secure application.
+These functions supply basic authentication cookie functionality. Usage examples can again be found in the JavaScript secure application repository and further information in The Anatomy of a Secure Application knowledge base article.
 
 * The `setAuthenticationCookie()` function takes `configuration`, `response`, `accessToken` and `identityToken` arguments. It also takes an optional `rememberMe` argument which, if set to true, sets the expiry of the cookie well into the future. The response is expected to be an instance of Node's ServerResponse class.
 

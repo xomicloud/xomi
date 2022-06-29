@@ -197,7 +197,7 @@ In this instance the `request` and `response` objects do not have to be instance
 - `createAccount()`
 - `resetPassword()`
 
-There are three functions relating to managing accounts. Together they provide an alternative to the usual browser based OAuth flow for authentication.
+There are three functions relating to managing accounts. Together they provide an alternative to the usual browser based OAuth flow for authentication. For more information see the [Ajax Account Management tutorial](https://developers.xomi.cloud/tutorial/ajax-account-management).
 
 * The `signIn()` function takes `configuration`, `emailAddressOrUsername`, `password` and `callback` arguments:
 
@@ -294,6 +294,7 @@ The function will invoke the callback function you provide with an error code an
 * [Developers - JavaScript Lambda Tutorial](https://developers.xomi.cloud/tutorial/javascript-lambda)
 * [Developers - Dropbox Integration Tutorial](https://developers.xomi.cloud/tutorial/dropbox-integration)
 * [Developers - JavaScript localhost Tutorial](https://developers.xomi.cloud/tutorial/javascript-localhost)
+* [Developers - Ajax Account Management Tutorial](https://developers.xomi.cloud/tutorial/ajax-account-management)
 * [Developers - The Anatomy of a Secure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application)
 
 ## Contact

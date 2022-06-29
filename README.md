@@ -63,7 +63,7 @@ Note the use of the aforementioned `configuration` argument which is assumed to 
 - `redirect()`
 - `callback()`
 
-These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback, respectively. Usage examples can be found in the [JavaScript secure application](https://github.com/xomicloud/javascript-secure-application).
+These functions will redirect the browser to the Xomi authentication site and handle the subsequent callback, respectively. Usage examples can be found in the [JavaScript secure application](https://github.com/xomicloud/javascript-secure-application) and further information can be found in the knowledge base article called [The Anatomy of a SSecure Application](https://developers.xomi.cloud/knowledge-base/anatomy-of-secure-application).
 
 * The `redirect()` function takes `configuration` and `response` arguments. The response is expected to be an instance of Node's [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) class. You can also pass a third, optional `createAccount` argument that, if set to true, instructs the authentication site to show the form to create an account rather than the sign up form.
 

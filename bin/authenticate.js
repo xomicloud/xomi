@@ -74,6 +74,8 @@ function resetPassword(configuration, emailAddress, callback) {
       default: {
         error = true;
 
+        callback(error);
+
         break;
       }
     }

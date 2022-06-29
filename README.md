@@ -181,9 +181,11 @@ function homePageHandler(request, response, next) {
 
 There is only one function that connects to Xomi's API server. Only an outline of its usage is given here. More detailed information can be found in the [Dropbox integration tutorial](https://developers.xomi.cloud/tutorial/dropbox-integration).
 
-* The `api` function takes `configuration`, `request` and `response` objects:
+* The `api` function takes `configuration`, `request` and `response` arguments:
  
 ```
+const { api } = require("@xomicloud/xomi");
+
 api(configuration, request, response);
 ```
 
@@ -191,38 +193,72 @@ In this instance the `request` and `response` objects do not have to be instance
 
 ### Authentication
 
-- `account()`
+- `signIn()`
+- `createAccount()`
+- `resetPassword()`
 
-Again there is only one function. It connects to Xomi's account server in order to provide a user's details, specifically their username and email address.
+There are three functions relating to managing accounts. Together they provide an alternative to the usual browser based OAuth flow for authentication.
 
-* The `account` function takes `configuration`, `identityToken` and `callback` objects:
+* The `signIn` function takes `configuration`, `emailAddressOrUsername`, `password` and `callback` arguments:
 
 ```
-api(configuration, identityToken, (error, account) => {
+signIn(configuration, emailAddressOrUsername, password, (error, accessToken, identityToken) => {
   if (error) {
     ///
     
     return;
   }
   
-  const { usernmae, email_address } = account;
+  ///
+}));
+```
+
+The function will invoke the callback function you provide with an error code and, if successful, an access token and an identity token.
+
+* The `createAccount` function takes `configuration`, `emailAddress`, `username`, `password` and `callback` arguments. The `username` argument can be `null` if usernames are not needed: 
+
+```
+createAccount(configuration, emailAddress, username, password, (error, accessToken, identityToken) => {
+  if (error) {
+    ///
+    
+    return;
+  }
   
   ///
 }));
 ```
 
-The function will invoke the callback function you provide with an error code and, provided you are authorized to retrieve that user's details, a plain old JavaScript object with the user's account details. Presently this is their email address and username.
+The function will invoke the callback function you provide with an error code and, if successful, an access token and an identity token.
+
+* The `restePassword` function takes `configuration`, `emailAddress` and `callback` arguments:
+
+```
+resetPassword(configuration, emailAddress, (error) => {
+  if (error) {
+    ///
+    
+    return;
+  }
+  
+  ///
+}));
+```
+
+If the email address corresponds to an user'a account then an email will be sent. The function additionally will invoke the callback function you provide with an error code but does not indicate whether or not an email was send for security reasons.
 
 ### Account information
 
 - `account()`
 
-Again there is only one function. It connects to Xomi's account server.
+Again there is only one function. It provides a user's details in return for their identity token.
 
-* The `account` function takes `configuration`, `identityToken` and `callback` objects:
+* The `account` function takes `configuration`, `identityToken` and `callback` arguments:
 
 ```
-api(configuration, identityToken, (error, account) => {
+const { account } = require("@xomicloud/xomi");
+
+account(configuration, identityToken, (error, account) => {
   if (error) {
     ///
     

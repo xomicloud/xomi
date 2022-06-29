@@ -84,7 +84,7 @@ function signInHandler(request, response, next) {
 }
 ```
 
-* The `callback()` function takes `configuration`, `code` and `callback` function arguments. The `code` argument is the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` argument together witih `accessToken`, `refreshToken` and `identityToken` arguments.
+* The `callback()` function takes `configuration`, `code` and `callback()` function arguments. The `code` argument is the code returned by the authentication site when the user successfully authenticates and can be recovered from the request object, assuming it is an instance of Node's [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) class. The callback function should accept an `error` argument together witih `accessToken`, `refreshToken` and `identityToken` arguments.
 
 ```
 const { oAuth, cookie } = require("@xomicloud/xomi");
@@ -181,7 +181,7 @@ function homePageHandler(request, response, next) {
 
 There is only one function that connects to Xomi's API server. Only an outline of its usage is given here. More detailed information can be found in the [Dropbox integration tutorial](https://developers.xomi.cloud/tutorial/dropbox-integration).
 
-* The `api` function takes `configuration`, `request` and `response` arguments:
+* The `api()` function takes `configuration`, `request` and `response` arguments:
  
 ```
 const { api } = require("@xomicloud/xomi");
@@ -199,7 +199,7 @@ In this instance the `request` and `response` objects do not have to be instance
 
 There are three functions relating to managing accounts. Together they provide an alternative to the usual browser based OAuth flow for authentication.
 
-* The `signIn` function takes `configuration`, `emailAddressOrUsername`, `password` and `callback` arguments:
+* The `signIn()` function takes `configuration`, `emailAddressOrUsername`, `password` and `callback` arguments:
 
 ```
 const { authenticate } = require("@xomicloud/xomi");
@@ -219,7 +219,7 @@ authenticate.signIn(configuration, emailAddressOrUsername, password, (error, acc
 
 The function will invoke the callback function you provide with an error code and, if successful, an access token and an identity token.
 
-* The `createAccount` function takes `configuration`, `emailAddress`, `username`, `password` and `callback` arguments. The `username` argument can be `null` if usernames are not needed: 
+* The `createAccount()` function takes `configuration`, `emailAddress`, `username`, `password` and `callback` arguments. The `username` argument can be `null` if usernames are not needed: 
 
 ```
 const { authenticate } = require("@xomicloud/xomi");
@@ -239,7 +239,7 @@ authenticate.createAccount(configuration, emailAddress, username, password, (err
 
 The function will invoke the callback function you provide with an error code and, if successful, an access token and an identity token.
 
-* The `restePassword` function takes `configuration`, `emailAddress` and `callback` arguments:
+* The `restePassword()` function takes `configuration`, `emailAddress` and `callback` arguments:
 
 ```
 const { authenticate } = require("@xomicloud/xomi");
@@ -265,7 +265,7 @@ If the email address corresponds to an user'a account then an email will be sent
 
 Again there is only one function. It provides a user's details in exchange for their identity token.
 
-* The `account` function takes `configuration`, `identityToken` and `callback` arguments:
+* The `account()` function takes `configuration`, `identityToken` and `callback` arguments:
 
 ```
 const { account } = require("@xomicloud/xomi");
